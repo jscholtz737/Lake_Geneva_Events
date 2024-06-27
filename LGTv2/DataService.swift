@@ -6,11 +6,26 @@
 //
 
 import Foundation
+import FirebaseCore
+import FirebaseFirestore
 
 struct DataService {
     
     func getData() -> [Event] {
         
+        let db = Firestore.firestore()
+        let events = db.collection("events")
+        events.getDocuments { querySnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let querySnapshot = querySnapshot {
+                for doc in querySnapshot.documents {
+                    print(doc.data())
+                }
+            } else {
+                //no data returned
+            }
+        }
         return [Event(name: "A Festival",
                       location: "Lake Geneva",
                       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",

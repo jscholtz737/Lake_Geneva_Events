@@ -13,20 +13,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
-      let db = Firestore.firestore()
-      let events = db.collection("events")
-      events.getDocuments { querySnapshot, error in
-          if let error = error {
-              print(error.localizedDescription)
-          } else if let querySnapshot = querySnapshot {
-              for doc in querySnapshot.documents {
-                  print(doc.data())
-              }
-          } else {
-              //no data returned
-          }
-      }
-     
       return true
   }
 }
