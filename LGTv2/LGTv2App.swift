@@ -15,16 +15,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     FirebaseApp.configure()
       let db = Firestore.firestore()
       let events = db.collection("events")
-      let document = events.document("Pq4HkmIp45Q5A5yLezxu")
-      document.getDocument { docSnapshot, error in
+      events.getDocuments { querySnapshot, error in
           if let error = error {
               print(error.localizedDescription)
-          } else if let docSnapshot = docSnapshot {
-              print(docSnapshot.data() ?? "nil")
+          } else if let querySnapshot = querySnapshot {
+              for doc in querySnapshot.documents {
+                  print(doc.data())
+              }
           } else {
               //no data returned
           }
       }
+     
       return true
   }
 }
