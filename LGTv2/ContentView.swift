@@ -13,8 +13,7 @@ struct ContentView: View {
     @State var currentWx = Current()
     @State var events = [Event]()
     var dataService = DataService()
-    @State var skyIcon = ""
-    
+    @State var skyIcon = "dashes"
     var body: some View {
         
         VStack {
