@@ -45,7 +45,7 @@ struct DataService {
             
             //3. send request
             do {
-                let (data, response) = try await URLSession.shared.data(for: request)
+                let (data,_) = try await URLSession.shared.data(for: request)
                 
                 //4. parse the json
                 let decoder = JSONDecoder()
