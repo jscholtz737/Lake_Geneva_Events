@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Event: Identifiable {
     
-    let id = UUID()
+    var id: String
     var name: String
     var location: String
     var description: String

@@ -9,43 +9,34 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 
-struct DataService {
+class DataService: ObservableObject {
     
-    func getData() -> [Event] {
-        
+    @Published var events = [Event]()
+    
+    
+    func getEvents() {
+      
         let db = Firestore.firestore()
-        let events = db.collection("events")
-        events.getDocuments { querySnapshot, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let querySnapshot = querySnapshot {
-                for doc in querySnapshot.documents {
-                    print(doc.data())
+        db.collection("events").getDocuments { snapshot, error in
+            if error == nil {
+                //no errors
+                if let snapshot = snapshot {
+                    
+                    //update te list properties in the main thread
+                    DispatchQueue.main.async {
+                        //get the documents and create Events
+                        self.events = snapshot.documents.map { d in
+                            
+                            //create a Event item for each document returned
+                            return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", description: d["description"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "")
+                        }
+                    }
                 }
-            } else {
-                //no data returned
+            }
+            else {
+                print(error?.localizedDescription ?? "db error")
             }
         }
-        return [Event(name: "A Festival",
-                      location: "Lake Geneva",
-                      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-                      time: "8am-10pm",
-                      imageName: "festival"),
-                Event(name: "Lakefest",
-                      location: "Fontana",
-                      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-                      time: "10am-1pm",
-                      imageName: "lake"),
-                Event(name: "Farmers Market",
-                      location: "Williams Bay",
-                      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-                      time: "10:30am-10:30pm",
-                      imageName: "festival"),
-                Event(name: "Venetian Fest",
-                      location: "Lake Geneva",
-                      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-                      time: "9:30am-5pm",
-                      imageName: "lake"),        ]
     }
     
     func getWeather() async -> Current {

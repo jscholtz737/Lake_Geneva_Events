@@ -11,8 +11,7 @@ import Foundation
 struct ContentView: View {
     
     @State var currentWx = Current()
-    @State var events = [Event]()
-    var dataService = DataService()
+    @ObservedObject var dataService = DataService()
     @State var skyIcon = "dashes"
     var body: some View {
         
@@ -59,7 +58,7 @@ struct ContentView: View {
             
             NavigationStack{
                 List {
-                    ForEach(events) {event in
+                    ForEach(dataService.events) {event in
                         NavigationLink {
                             EventDetailView(event: event)
                         } label: {
@@ -80,7 +79,7 @@ struct ContentView: View {
                     }
                 }
                 .onAppear {
-                    events = dataService.getData()
+                    dataService.getEvents()
                 }
                 .listStyle(.plain)
             }
