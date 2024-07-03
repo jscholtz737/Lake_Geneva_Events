@@ -7,12 +7,16 @@
 
 import SwiftUI
 import Foundation
+import MapKit
 
 struct ContentView: View {
     
+    @Environment(EventModel.self) var eventModel
     @State var currentWx = Current()
     @ObservedObject var dataService = DataService()
     @State var skyIcon = "dashes"
+   
+    
     var body: some View {
         
         VStack {
@@ -50,15 +54,13 @@ struct ContentView: View {
             }
             .padding()
             
-            Image("LakeSilouette")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+           MapView()
             
             Divider()
             
             NavigationStack{
                 List {
-                    ForEach(dataService.events) {event in
+                    ForEach(eventModel.events) {event in
                         NavigationLink {
                             EventDetailView(event: event)
                         } label: {
@@ -71,6 +73,8 @@ struct ContentView: View {
                                 VStack (alignment: .leading){
                                     Text(event.name)
                                     Text(event.location)
+                                    Text(String(event.latitude))
+                                    Text(String(event.longitude))
                                 }
                                 Spacer()
                                 Text(event.time)
@@ -79,7 +83,7 @@ struct ContentView: View {
                     }
                 }
                 .onAppear {
-                    dataService.getEvents()
+                    eventModel.getEvents()
                 }
                 .listStyle(.plain)
             }
