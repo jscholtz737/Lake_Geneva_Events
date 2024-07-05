@@ -16,14 +16,8 @@ struct MapView: View {
         Map() {
             
             ForEach (eventModel.events) {event in
-                
                 Marker(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
-                
-                
             }
-            
-            
-            //Marker("Farmers Market", coordinate: CLLocationCoordinate2D(latitude: 42.59388, longitude: 88.43548))
         }
     }
 }

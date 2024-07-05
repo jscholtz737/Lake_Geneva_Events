@@ -73,8 +73,6 @@ struct ContentView: View {
                                 VStack (alignment: .leading){
                                     Text(event.name)
                                     Text(event.location)
-                                    Text(String(event.latitude))
-                                    Text(String(event.longitude))
                                 }
                                 Spacer()
                                 Text(event.time)
