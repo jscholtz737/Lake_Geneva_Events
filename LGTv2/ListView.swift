@@ -10,6 +10,7 @@ import SwiftUI
 struct ListView: View {
     
     @Environment(EventModel.self) var eventModel
+    @State var selectedEvent: Event?
     
     var body: some View {
        
@@ -29,9 +30,15 @@ struct ListView: View {
                         Spacer()
                         Text(event.time)
                     }
+                    .onTapGesture {
+                        selectedEvent = event
+                    }
                 }
             }
         .listStyle(.plain)
+        .sheet(item: $selectedEvent) { event in
+            EventDetailView(event: event)
+        }
         }
     }
 
