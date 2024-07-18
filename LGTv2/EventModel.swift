@@ -14,6 +14,7 @@ import FirebaseFirestore
 class EventModel: ObservableObject {
     
     var events = [Event]()
+    var selectedEvent: Event?
     
     func getEvents() {
         

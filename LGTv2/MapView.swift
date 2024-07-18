@@ -11,12 +11,22 @@ import MapKit
 struct MapView: View {
     
     @Environment(EventModel.self) var eventModel
+    @State var selectedEventId: String?
     
     var body: some View {
-        Map() {
+        Map(selection: $selectedEventId) {
             
             ForEach (eventModel.events) {event in
                 Marker(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
+                    .tag(event.id)
+            }
+        }
+        .onChange(of: selectedEventId) { oldValue, newValue in
+            let event = eventModel.events.first { event in
+                event.id == selectedEventId
+            }
+            if let event = event {
+                eventModel.selectedEvent = event
             }
         }
     }

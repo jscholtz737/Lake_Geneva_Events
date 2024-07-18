@@ -9,11 +9,11 @@ import SwiftUI
 
 struct EventDetailView: View {
     
-    var event:Event?
+    @Environment(EventModel.self) var eventModel
     
     var body: some View {
         ZStack{
-            Image(event?.imageName ?? "")
+            Image(eventModel.selectedEvent?.imageName ?? "")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .clipped()
@@ -21,10 +21,10 @@ struct EventDetailView: View {
                 .opacity(0.5)
         
             VStack{
-                Text(event?.name ?? "")
-                Text(event?.location ?? "")
-                Text(event?.time ?? "")
-                Text(event?.description ?? "")
+                Text(eventModel.selectedEvent?.name ?? "")
+                Text(eventModel.selectedEvent?.description ?? "")
+                Text(eventModel.selectedEvent?.location ?? "")
+                Text(eventModel.selectedEvent?.time ?? "")
             }
             .padding(.leading)
             .padding(.trailing)

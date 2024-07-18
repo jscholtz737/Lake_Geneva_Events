@@ -13,20 +13,23 @@ struct ContentView: View {
     
     @Environment(EventModel.self) var eventModel
     @State var selectedTab = 0
-  
+    
+    
     var body: some View {
+        
+        @Bindable var eventModel = eventModel
         
         VStack {
             Text("Lake Geneva Today")
                 .font(.largeTitle)
                 .italic()
                 .bold()
-                
+            
             
             Text(Date().formatted(.dateTime.weekday(.wide).month(.wide).day()))
                 .font(.title2)
             
-           WxView()
+            WxView()
             
             Picker("", selection: $selectedTab) {
                 Text("Map")
@@ -36,7 +39,7 @@ struct ContentView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             
-      
+            
             if selectedTab == 1 {
                 ListView()
             }
@@ -47,6 +50,9 @@ struct ContentView: View {
         .onAppear {
             eventModel.getEvents()
         }
+        .sheet(item: $eventModel.selectedEvent) { item in
+            EventDetailView()
+        } 
     }
 }
 struct ContentView_Previews: PreviewProvider {
