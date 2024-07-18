@@ -55,7 +55,9 @@ struct ContentView: View {
             .padding()
             
            MapView()
-            
+                .onAppear {
+                    eventModel.getEvents()
+                }
         }
     }
 }
