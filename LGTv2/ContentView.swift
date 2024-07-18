@@ -56,35 +56,6 @@ struct ContentView: View {
             
            MapView()
             
-            Divider()
-            
-            NavigationStack{
-                List {
-                    ForEach(eventModel.events) {event in
-                        NavigationLink {
-                            EventDetailView(event: event)
-                        } label: {
-                            HStack{
-                                Image(event.imageName)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 75.0, height: 75.0)
-                                    .clipped()
-                                VStack (alignment: .leading){
-                                    Text(event.name)
-                                    Text(event.location)
-                                }
-                                Spacer()
-                                Text(event.time)
-                            }
-                        }
-                    }
-                }
-                .onAppear {
-                    eventModel.getEvents()
-                }
-                .listStyle(.plain)
-            }
         }
     }
 }
