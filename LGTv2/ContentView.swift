@@ -12,6 +12,7 @@ import MapKit
 struct ContentView: View {
     
     @Environment(EventModel.self) var eventModel
+    @State var selectedTab = 0
     @State var currentWx = Current()
     @ObservedObject var dataService = DataService()
     @State var skyIcon = "dashes"
@@ -54,10 +55,24 @@ struct ContentView: View {
             }
             .padding()
             
-           MapView()
-                .onAppear {
-                    eventModel.getEvents()
-                }
+            Picker("", selection: $selectedTab) {
+                Text("Map")
+                    .tag(0)
+                Text("List")
+                    .tag(1)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            
+      
+            if selectedTab == 1 {
+                ListView()
+            }
+            else {
+                MapView()
+            }
+        }
+        .onAppear {
+            eventModel.getEvents()
         }
     }
 }
