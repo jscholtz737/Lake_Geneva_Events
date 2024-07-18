@@ -21,6 +21,7 @@
 		1AB570A02C2D271700F4B4D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB5709F2C2D271700F4B4D8 /* FirebaseAuth */; };
 		1AB570A82C2DBD3300F4B4D8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB570A72C2DBD3300F4B4D8 /* FirebaseFirestore */; };
 		1AD897FD2C495EF300CF23A6 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FC2C495EF300CF23A6 /* ListView.swift */; };
+		1AD897FF2C49674100CF23A6 /* WxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FE2C49674100CF23A6 /* WxView.swift */; };
 		1AE4D31B2C277F1100F9C34D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AE4D31A2C277F1100F9C34D /* GoogleService-Info.plist */; };
 		1AE4D31E2C27830600F9C34D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE4D31D2C27830600F9C34D /* FirebaseAnalytics */; };
 		1AE4D3202C27830600F9C34D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE4D31F2C27830600F9C34D /* FirebaseDatabaseSwift */; };
@@ -40,6 +41,7 @@
 		1A9112A92C275D6F001A43CA /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		1AB4C6252C2F6B750094D982 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		1AD897FC2C495EF300CF23A6 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		1AD897FE2C49674100CF23A6 /* WxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WxView.swift; sourceTree = "<group>"; };
 		1AE4D31A2C277F1100F9C34D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 				1A9112932C275B0A001A43CA /* LGTv2App.swift */,
 				1AB4C6252C2F6B750094D982 /* EventModel.swift */,
 				1A9112952C275B0A001A43CA /* ContentView.swift */,
+				1AD897FE2C49674100CF23A6 /* WxView.swift */,
 				1A2548A82C2F5A5B000B4BBA /* MapView.swift */,
 				1AD897FC2C495EF300CF23A6 /* ListView.swift */,
 				1A9112A52C275D0E001A43CA /* WeatherUpdate.swift */,
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A9112A42C275CC5001A43CA /* EventDetailView.swift in Sources */,
+				1AD897FF2C49674100CF23A6 /* WxView.swift in Sources */,
 				1AB4C6262C2F6B750094D982 /* EventModel.swift in Sources */,
 				1AD897FD2C495EF300CF23A6 /* ListView.swift in Sources */,
 				1A2548A92C2F5A5B000B4BBA /* MapView.swift in Sources */,
