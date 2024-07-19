@@ -18,5 +18,6 @@ struct Event: Identifiable {
     var description: String
     var time: String
     var imageName: String
+    var date: String
     
 }

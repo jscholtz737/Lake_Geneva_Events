@@ -18,11 +18,22 @@ class EventModel: ObservableObject {
     
     func getEvents() {
         
+        let now = Date()
+
+        let dtFormatter = DateFormatter()
+        dtFormatter.dateStyle = .short
+
+        let formattedDateTime = dtFormatter.string(from: now)
+        
         let db = Firestore.firestore()
-        db.collection("events").getDocuments { snapshot, error in
+        
+        let events = db.collection("events")
+        let query = events.whereField("date", in: [formattedDateTime])
+        query.getDocuments { QuerySnapshot, error in
+            
             if error == nil {
                 //no errors
-                if let snapshot = snapshot {
+                if let snapshot = QuerySnapshot {
                     
                     //update te list properties in the main thread
                     DispatchQueue.main.async {
@@ -30,7 +41,7 @@ class EventModel: ObservableObject {
                         self.events = snapshot.documents.map { d in
                             
                             //create a Event item for each document returned
-                            return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "")
+                            return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "", date: d["date"] as? String ?? "")
                         }
                     }
                 }

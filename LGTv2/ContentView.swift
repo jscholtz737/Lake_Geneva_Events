@@ -28,7 +28,7 @@ struct ContentView: View {
             
             Text(Date().formatted(.dateTime.weekday(.wide).month(.wide).day()))
                 .font(.title2)
-            
+       
             WxView()
             
             Picker("", selection: $selectedTab) {

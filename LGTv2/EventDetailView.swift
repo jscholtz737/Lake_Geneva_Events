@@ -25,6 +25,7 @@ struct EventDetailView: View {
                 Text(eventModel.selectedEvent?.description ?? "")
                 Text(eventModel.selectedEvent?.location ?? "")
                 Text(eventModel.selectedEvent?.time ?? "")
+                Text(eventModel.selectedEvent?.date ?? "")
             }
             .padding(.leading)
             .padding(.trailing)
