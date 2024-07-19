@@ -25,10 +25,14 @@ struct ContentView: View {
                 .italic()
                 .bold()
             
+            DatePicker(
+                    "Selected Date",
+                    selection: $eventModel.date,
+                    in: Date()...,
+                    displayedComponents: [.date]
+                )
+            .labelsHidden()
             
-            Text(Date().formatted(.dateTime.weekday(.wide).month(.wide).day()))
-                .font(.title2)
-       
             WxView()
             
             Picker("", selection: $selectedTab) {
@@ -49,10 +53,14 @@ struct ContentView: View {
         }
         .onAppear {
             eventModel.getEvents()
+                
         }
         .sheet(item: $eventModel.selectedEvent) { item in
             EventDetailView()
         } 
+        .onChange(of: eventModel.date) {
+            eventModel.getEvents()
+        }
     }
 }
 struct ContentView_Previews: PreviewProvider {

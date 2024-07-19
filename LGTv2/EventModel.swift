@@ -15,20 +15,19 @@ class EventModel: ObservableObject {
     
     var events = [Event]()
     var selectedEvent: Event?
+    var date = Date()
     
     func getEvents() {
-        
-        let now = Date()
 
         let dtFormatter = DateFormatter()
         dtFormatter.dateStyle = .short
 
-        let formattedDateTime = dtFormatter.string(from: now)
+        let formattedDate = dtFormatter.string(from: date)
         
         let db = Firestore.firestore()
         
         let events = db.collection("events")
-        let query = events.whereField("date", in: [formattedDateTime])
+        let query = events.whereField("date", in: [formattedDate])
         query.getDocuments { QuerySnapshot, error in
             
             if error == nil {
