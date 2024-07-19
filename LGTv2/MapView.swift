@@ -25,7 +25,7 @@ struct MapView: View {
             let event = eventModel.events.first { event in
                 event.id == selectedEventId
             }
-            if let event = event {
+            if event != nil {
                 eventModel.selectedEvent = event
             }
         }
