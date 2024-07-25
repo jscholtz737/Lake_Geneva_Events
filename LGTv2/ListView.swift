@@ -14,31 +14,37 @@ struct ListView: View {
     
     var body: some View {
         
-      
+        if eventModel.events.count == 0 {
+            Text("")
+            Text("No events scheduled")
+            Spacer()
+        }
         
-        List {
-            ForEach(eventModel.events) {event in
-                
-                HStack{
-                    Image(event.imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 75.0, height: 75.0)
-                        .clipped()
-                    VStack (alignment: .leading){
-                        Text(event.name)
-                        Text(event.location)
+        else {
+            
+            List {
+                ForEach(eventModel.events) {event in
+                    
+                    HStack{
+                        Image(event.imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 75.0, height: 75.0)
+                            .clipped()
+                        VStack (alignment: .leading){
+                            Text(event.name)
+                            Text(event.location)
+                        }
+                        Spacer()
+                        Text(event.time)
                     }
-                    Spacer()
-                    Text(event.time)
-                }
-                .onTapGesture {
-                    eventModel.selectedEvent = event
+                    .onTapGesture {
+                        eventModel.selectedEvent = event
+                    }
                 }
             }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
-        
     }
     }
 
