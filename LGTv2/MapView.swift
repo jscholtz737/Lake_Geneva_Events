@@ -13,9 +13,11 @@ struct MapView: View {
     @Environment(EventModel.self) var eventModel
     @State var selectedEventId: String?
     
+    @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.5462, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
+    
     var body: some View {
-        Map(selection: $selectedEventId) {
-            
+        Map(position: $position, selection: $selectedEventId)
+        {
             ForEach (eventModel.events) {event in
                 Marker(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
                     .tag(event.id)
@@ -29,8 +31,16 @@ struct MapView: View {
                 eventModel.selectedEvent = event
             }
         }
+        HStack {
+            Button(action: {
+                position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.5462, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))            }, label: {
+                Text("Reset Map")
+            })
+        }
+        Spacer()
     }
 }
+    
 
 #Preview {
     MapView()
