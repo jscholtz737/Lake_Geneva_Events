@@ -12,6 +12,7 @@ import MapKit
 struct ContentView: View {
     
     @Environment(EventModel.self) var eventModel
+    @State private var calendarId: Int = 0
     @State var selectedTab = 0
     
     
@@ -20,7 +21,7 @@ struct ContentView: View {
         @Bindable var eventModel = eventModel
         
         VStack {
-            Text("Lake Geneva Today")
+            Text("Lake Geneva Events")
                 .font(.largeTitle)
                 .italic()
                 .bold()
@@ -32,6 +33,10 @@ struct ContentView: View {
                     displayedComponents: [.date]
                 )
             .labelsHidden()
+            .id(calendarId)
+            .onChange(of: eventModel.date) {
+              calendarId += 1
+            }
             
             WxView()
             
