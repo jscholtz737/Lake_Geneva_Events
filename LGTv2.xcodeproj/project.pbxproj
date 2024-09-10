@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0CBFB92C8F734B000A92BF /* Crowds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CBFB82C8F734B000A92BF /* Crowds.swift */; };
 		1A2548A92C2F5A5B000B4BBA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2548A82C2F5A5B000B4BBA /* MapView.swift */; };
 		1A9112942C275B0A001A43CA /* LGTv2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112932C275B0A001A43CA /* LGTv2App.swift */; };
 		1A9112962C275B0A001A43CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112952C275B0A001A43CA /* ContentView.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		1A0CBFB72C8F49CC000A92BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1A0CBFB82C8F734B000A92BF /* Crowds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crowds.swift; sourceTree = "<group>"; };
 		1A2548A82C2F5A5B000B4BBA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		1A9112902C275B0A001A43CA /* LGTv2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGTv2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A9112932C275B0A001A43CA /* LGTv2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGTv2App.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				1A9112A52C275D0E001A43CA /* WeatherUpdate.swift */,
 				1A9112A72C275D3F001A43CA /* SkyCond.swift */,
 				1A9112A12C275C8C001A43CA /* Event.swift */,
+				1A0CBFB82C8F734B000A92BF /* Crowds.swift */,
 				1A9112A92C275D6F001A43CA /* DataService.swift */,
 				1A9112972C275B0D001A43CA /* Assets.xcassets */,
 				1A9112992C275B0D001A43CA /* Preview Content */,
@@ -196,6 +199,7 @@
 				1A9112962C275B0A001A43CA /* ContentView.swift in Sources */,
 				1A9112A22C275C8C001A43CA /* Event.swift in Sources */,
 				1A9112A82C275D3F001A43CA /* SkyCond.swift in Sources */,
+				1A0CBFB92C8F734B000A92BF /* Crowds.swift in Sources */,
 				1A9112942C275B0A001A43CA /* LGTv2App.swift in Sources */,
 				1A9112A62C275D0E001A43CA /* WeatherUpdate.swift in Sources */,
 			);

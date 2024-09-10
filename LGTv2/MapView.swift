@@ -13,7 +13,7 @@ struct MapView: View {
     @Environment(EventModel.self) var eventModel
     @State var selectedEventId: String?
     
-    @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.5462, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
+    @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     
     var body: some View {
         Map(position: $position, selection: $selectedEventId)
@@ -33,7 +33,7 @@ struct MapView: View {
         }
         HStack {
             Button(action: {
-                position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.5462, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))            }, label: {
+                position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.17, longitudeDelta: 0.17)))            }, label: {
                 Text("Reset Map")
             })
         }

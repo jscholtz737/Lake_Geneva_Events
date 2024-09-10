@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WxView: View {
     
+    @Environment(EventModel.self) var eventModel
     @State var currentWx = Current()
     @ObservedObject var dataService = DataService()
     @State var skyIcon = "dashes"
@@ -41,12 +42,43 @@ struct WxView: View {
                         .font(.subheadline)
                         .padding(.trailing)
                         .padding(.top)
-                    Image(systemName: "person.fill")
-                        .foregroundColor(.green)
-                        .font(.system(size: 44))
-                        .padding(9)
-                    Text("Light")
-                        .font(.subheadline)
+                    ForEach(eventModel.crowds) {crowd in
+                        switch crowd.level {
+                        case "Low":
+                            Image(systemName: "person.fill")
+                                .foregroundColor(.green)
+                                .font(.system(size: 32))
+                                .scaledToFit()
+                                .frame(width: 64, height: 66)
+                                .padding(.trailing)
+                        case "Moderate":
+                            Image(systemName: "person.2.fill")
+                                .foregroundColor(.orange)
+                                .font(.system(size: 32))
+                                .scaledToFit()
+                                .frame(width: 64, height: 66)
+                                .padding(.trailing)
+                        case "Heavy":
+                            Image(systemName: "person.3.fill")
+                                .foregroundColor(.red)
+                                .font(.system(size: 32))
+                                .scaledToFit()
+                                .frame(width: 64, height: 66)
+                                .padding(.trailing)
+                        default:
+                            Image("person.fill.questionmark")
+                        }
+                           
+                        Text(crowd.level)
+                            .font(.subheadline)
+                            .padding(.trailing)
+                    }
+                }
+                .onAppear {
+                    eventModel.getCrowds()
+                }
+                .onChange(of: eventModel.date) {
+                    eventModel.getCrowds()
                 }
                 }
                 .task {
@@ -57,6 +89,7 @@ struct WxView: View {
                         }
                     }
                 }
+                .padding(.bottom)
         }
     }
 

@@ -58,7 +58,6 @@ struct ContentView: View {
         }
         .onAppear {
             eventModel.getEvents()
-                
         }
         .sheet(item: $eventModel.selectedEvent) { item in
             EventDetailView()
