@@ -30,7 +30,8 @@ struct WxView: View {
                             .padding(.trailing)
                             .font(.subheadline)
                         let stringWind = String(format: "%1.f", currentWx.wind_mph ?? "--")
-                        Image("wind")
+                        Image(systemName: "wind")
+                            .font(.system(size: 15))
                         Text(stringWind)
                             .font(.subheadline)
                 }
@@ -90,6 +91,16 @@ struct WxView: View {
                     }
                 }
                 .padding(.bottom)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        Task {
+                            currentWx = await dataService.getWeather()
+                            if let code = currentWx.condition.code {
+                                if let day = currentWx.is_day {
+                                    skyIcon = SkyCond.getIcon(code: code, day: day)
+                                }
+                            }
+                        }
+                }
         }
     }
 

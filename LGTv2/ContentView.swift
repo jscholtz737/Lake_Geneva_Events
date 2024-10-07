@@ -65,6 +65,9 @@ struct ContentView: View {
         .onChange(of: eventModel.date) {
             eventModel.getEvents()
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            eventModel.date = Date()
+        }
     }
 }
 
