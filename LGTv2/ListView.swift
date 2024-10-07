@@ -33,10 +33,14 @@ struct ListView: View {
                             .clipped()
                         VStack (alignment: .leading){
                             Text(event.name)
+                                .bold()
                             Text(event.location)
+                                .italic()
+                                .font(.subheadline)
                         }
                         Spacer()
                         Text(event.time)
+                            .font(.subheadline)
                     }
                     .onTapGesture {
                         eventModel.selectedEvent = event

@@ -18,10 +18,14 @@ struct EventDetailView: View {
                 .aspectRatio(contentMode: .fill)
                 .clipped()
                 .ignoresSafeArea()
-                .opacity(0.5)
+                .opacity(0.2)
         
             VStack{
                 Text(eventModel.selectedEvent?.name ?? "")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
+                Spacer()
                 Text(eventModel.selectedEvent?.description ?? "")
                 Text(eventModel.selectedEvent?.location ?? "")
                 Text(eventModel.selectedEvent?.time ?? "")
