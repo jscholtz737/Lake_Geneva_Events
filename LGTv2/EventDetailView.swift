@@ -25,6 +25,7 @@ struct EventDetailView: View {
                     .font(.largeTitle)
                     .bold()
                     .padding()
+                    .multilineTextAlignment(.center)
                 Spacer()
                 Text(eventModel.selectedEvent?.description ?? "")
                 Text(eventModel.selectedEvent?.location ?? "")
@@ -35,3 +36,31 @@ struct EventDetailView: View {
         }
     }
 }
+
+#Preview {
+    ZStack{
+        Image("LakeGeneva")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .clipped()
+            .ignoresSafeArea()
+            .opacity(0.2)
+    
+        VStack{
+            Text("Electric Christmas Parade")
+                .frame(width: 300)
+                .font(.largeTitle)
+                .bold()
+                .padding()
+                .multilineTextAlignment(.center)
+            Spacer()
+            Text("Join us for a joyful celebration of the season as this colorful, light-filled parade moves down Broad and Main Streets in Downtown Lake Geneva.Spectators of all ages will enjoy magical floats and more creative displays.")
+            Text("Broad Street")
+            Text("7pm")
+            Spacer()
+        }
+        .padding(.leading)
+        .padding(.trailing)
+    }
+}
+
