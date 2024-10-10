@@ -16,6 +16,7 @@ struct ListView: View {
         
         if eventModel.events.count == 0 {
             Text("")
+            Text("")
             Text("No events scheduled")
             Spacer()
         }

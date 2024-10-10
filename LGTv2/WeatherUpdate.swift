@@ -44,7 +44,7 @@ struct Current: Decodable {
     var feelslike_f: Double?
     var vis_km: Double?
     var vis_miles: Double?
-    var uv: Int?
+    var uv: Double?
     var gust_mph: Double?
     var gust_kph: Double?
 }
