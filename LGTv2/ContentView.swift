@@ -20,56 +20,63 @@ struct ContentView: View {
         
         @Bindable var eventModel = eventModel
         
-        VStack {
-            Text("")
-            Text("Lake Geneva Events")
-                .font(.largeTitle)
-                .italic()
-                .bold()
+        ZStack {
             
-            DatePicker(
+            Color.blue.opacity(0.1)
+                .ignoresSafeArea()
+            
+            VStack (spacing:0) {
+                Text("")
+                Text("Lake Geneva Events")
+                    .font(.largeTitle)
+                    .italic()
+                    .bold()
+                
+                DatePicker(
                     "Selected Date",
                     selection: $eventModel.date,
                     in: Date()...,
                     displayedComponents: [.date]
                 )
-            .labelsHidden()
-            .id(calendarId)
+                .padding(.top)
+                .labelsHidden()
+                .id(calendarId)
+                .onChange(of: eventModel.date) {
+                    calendarId += 1
+                }
+                
+                WxView()
+                
+                Picker("", selection: $selectedTab) {
+                    Text("Map")
+                        .tag(0)
+                    Text("List")
+                        .tag(1)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.top)
+                
+                
+                if selectedTab == 1 {
+                    ListView()
+                }
+                else {
+                    MapView()
+                }
+            }
+            .onAppear {
+                eventModel.getEvents()
+            }
+            .sheet(item: $eventModel.selectedEvent) { item in
+                EventDetailView()
+            }
             .onChange(of: eventModel.date) {
-              calendarId += 1
+                eventModel.getEvents()
             }
-            
-            WxView()
-            
-            Picker("", selection: $selectedTab) {
-                Text("Map")
-                    .tag(0)
-                Text("List")
-                    .tag(1)
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            
-            
-            if selectedTab == 1 {
-                ListView()
-            }
-            else {
-                MapView()
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                eventModel.date = Date()
             }
         }
-        .onAppear {
-            eventModel.getEvents()
-        }
-        .sheet(item: $eventModel.selectedEvent) { item in
-            EventDetailView()
-        } 
-        .onChange(of: eventModel.date) {
-            eventModel.getEvents()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            eventModel.date = Date()
-        }
-        
     }
 }
 
@@ -81,7 +88,7 @@ struct ContentView: View {
     
     @Previewable @State var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     
-    @Previewable var eventList = Event(id: "1", name: "one", location: "two", latitude: 0, longitude: 0, description: "stuff", time: "8am", imageName: "LakeGeneva", date: ["Oct 4"])
+    @Previewable var eventList = Event(id: "1", name: "one", location: "two", locationDetails: "three", latitude: 0, longitude: 0, description: "stuff", link: "link", time: "8am", imageName: "LakeGeneva", date: ["Oct 4"])
     
     VStack {
         Text("Lake Geneva Events")
