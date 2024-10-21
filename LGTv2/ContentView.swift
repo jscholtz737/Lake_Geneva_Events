@@ -38,7 +38,7 @@ struct ContentView: View {
                     in: Date()...,
                     displayedComponents: [.date]
                 )
-                .padding(.top)
+                .padding([.top, .bottom])
                 .labelsHidden()
                 .id(calendarId)
                 .onChange(of: eventModel.date) {

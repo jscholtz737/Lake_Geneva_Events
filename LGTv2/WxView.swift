@@ -25,11 +25,11 @@ struct WxView: View {
                         .padding(.top)
                     Image(skyIcon)
                     HStack {
-                        let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
+                        let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "5")
                         Text(stringTemp + "°")
                             .padding(.trailing)
                             .font(.subheadline)
-                        let stringWind = String(format: "%1.f", currentWx.wind_mph ?? "--")
+                        let stringWind = String(format: "%1.f", currentWx.wind_mph ?? "5")
                         Image(systemName: "wind")
                             .font(.system(size: 15))
                         Text(stringWind)
