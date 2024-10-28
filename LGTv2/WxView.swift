@@ -12,7 +12,7 @@ struct WxView: View {
     @Environment(EventModel.self) var eventModel
     @State var currentWx = Current()
     @ObservedObject var dataService = DataService()
-    @State var skyIcon = "dashes"
+    @State var skyIcon = ""
     
     var body: some View {
         
@@ -23,17 +23,42 @@ struct WxView: View {
                         .font(.subheadline)
                         .padding(.leading)
                         .padding(.top)
-                    Image(skyIcon)
+                    
+                    if skyIcon == "" {
+                        Image(systemName: "network.slash")
+                            .font(.system(size: 24))
+                            .scaledToFit()
+                            .frame(width: 48, height: 49)
+                    } else {
+                        Image(skyIcon)
+                    }
+                    
                     HStack {
-                        let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "5")
-                        Text(stringTemp + "°")
-                            .padding(.trailing)
-                            .font(.subheadline)
-                        let stringWind = String(format: "%1.f", currentWx.wind_mph ?? "5")
+                        if currentWx.temp_f == nil {
+                            let stringTemp = "--"
+                            Text(stringTemp + "°")
+                                .padding(.trailing)
+                                .font(.subheadline)
+                        } else {
+                            let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
+                            Text(stringTemp + "°")
+                                .padding(.trailing)
+                                .font(.subheadline)
+                        }
+                        
                         Image(systemName: "wind")
                             .font(.system(size: 15))
-                        Text(stringWind)
-                            .font(.subheadline)
+                        if currentWx.wind_mph == nil {
+                            let stringWind = "--"
+                            Text(stringWind)
+                                .padding(.trailing)
+                                .font(.subheadline)
+                        } else {
+                            let stringWind = String(format: "%1.f", currentWx.wind_mph ?? "--")
+                            Text(stringWind)
+                                .padding(.trailing)
+                                .font(.subheadline)
+                        }
                 }
             }
                 Spacer()
@@ -43,36 +68,52 @@ struct WxView: View {
                         .font(.subheadline)
                         .padding(.trailing)
                         .padding(.top)
-                    ForEach(eventModel.crowds) {crowd in
-                        switch crowd.level {
-                        case "Low":
-                            Image(systemName: "person.fill")
-                                .foregroundColor(.green)
-                                .font(.system(size: 24))
-                                .scaledToFit()
-                                .frame(width: 48, height: 49)
-                                .padding(.trailing)
-                        case "Moderate":
-                            Image(systemName: "person.2.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                                .scaledToFit()
-                                .frame(width: 48, height: 49)
-                                .padding(.trailing)
-                        case "Heavy":
-                            Image(systemName: "person.3.fill")
-                                .foregroundColor(.red)
-                                .font(.system(size: 24))
-                                .scaledToFit()
-                                .frame(width: 48, height: 49)
-                                .padding(.trailing)
-                        default:
-                            Image("person.fill.questionmark")
-                        }
-                           
-                        Text(crowd.level)
+                    
+                    if eventModel.crowds.isEmpty {
+                        Image(systemName: "person.fill.questionmark")
+                            .font(.system(size: 24))
+                            .scaledToFit()
+                            .frame(width: 48, height: 49)
+                            .padding(.trailing)
+                        Text("Unknown")
                             .font(.subheadline)
                             .padding(.trailing)
+                    } else {
+                        ForEach(eventModel.crowds) {crowd in
+                            switch crowd.level {
+                            case "Low":
+                                Image(systemName: "person.fill")
+                                    .foregroundColor(.green)
+                                    .font(.system(size: 24))
+                                    .scaledToFit()
+                                    .frame(width: 48, height: 49)
+                                    .padding(.trailing)
+                            case "Moderate":
+                                Image(systemName: "person.2.fill")
+                                    .foregroundColor(.orange)
+                                    .font(.system(size: 24))
+                                    .scaledToFit()
+                                    .frame(width: 48, height: 49)
+                                    .padding(.trailing)
+                            case "Heavy":
+                                Image(systemName: "person.3.fill")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 24))
+                                    .scaledToFit()
+                                    .frame(width: 48, height: 49)
+                                    .padding(.trailing)
+                            default:
+                                Image(systemName: "person.fill.questionmark")
+                                    .font(.system(size: 24))
+                                    .scaledToFit()
+                                    .frame(width: 48, height: 49)
+                                    .padding(.trailing)
+                            }
+                            
+                            Text(crowd.level)
+                                .font(.subheadline)
+                                .padding(.trailing)
+                        }
                     }
                 }
                 .onAppear {
@@ -84,7 +125,7 @@ struct WxView: View {
                 }
                 .task {
                     currentWx = await dataService.getWeather()
-                    if let code = currentWx.condition.code {
+                   if let code = currentWx.condition.code {
                         if let day = currentWx.is_day {
                             skyIcon = SkyCond.getIcon(code: code, day: day)
                         }
