@@ -11,14 +11,14 @@ import MapKit
 
 struct ContentView: View {
     
-    @Environment(EventModel.self) var eventModel
+    @State var eventModel:EventModel = EventModel()
     @State private var calendarId: Int = 0
     @State var selectedTab = 0
     
     
     var body: some View {
         
-        @Bindable var eventModel = eventModel
+        //@Bindable var eventModel = eventModel
         
         ZStack {
             
@@ -77,6 +77,7 @@ struct ContentView: View {
                 eventModel.date = Date()
             }
         }
+        .environment(eventModel)
     }
 }
 

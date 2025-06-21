@@ -11,7 +11,7 @@ struct WxView: View {
     
     @Environment(EventModel.self) var eventModel
     @State var currentWx = Current()
-    @ObservedObject var dataService = DataService()
+    @State var dataService:DataService = DataService()
     @State var skyIcon = ""
     
     var body: some View {
@@ -147,5 +147,5 @@ struct WxView: View {
 
 
 #Preview {
-    WxView(currentWx: Current(temp_f: 80), skyIcon: "113")
+    
 }

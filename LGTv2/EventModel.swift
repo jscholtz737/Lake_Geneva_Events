@@ -10,8 +10,8 @@ import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
 
-@Observable
-class EventModel: ObservableObject {
+
+@Observable class EventModel {
     
     var events = [Event]()
     var selectedEvent: Event?

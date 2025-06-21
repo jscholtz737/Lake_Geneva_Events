@@ -9,7 +9,7 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 
-class DataService: ObservableObject {
+@Observable class DataService {
     
     func getWeather() async -> Current {
         

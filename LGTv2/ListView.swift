@@ -57,6 +57,5 @@ struct ListView: View {
 
 
 #Preview {
-    ListView()
-        .environment(EventModel())
+    
 }
