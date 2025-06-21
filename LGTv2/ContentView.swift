@@ -18,8 +18,6 @@ struct ContentView: View {
     
     var body: some View {
         
-        //@Bindable var eventModel = eventModel
-        
         ZStack {
             
             Color.blue.opacity(0.1)
