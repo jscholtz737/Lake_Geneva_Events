@@ -15,45 +15,55 @@ struct ListView: View {
     var body: some View {
         
         if eventModel.events.count == 0 {
+            noEventsScheduled
+        }
+        else {
+            eventList
+        }
+    }
+    }
+
+// MARK: COMPONENTS
+extension ListView {
+    
+    var noEventsScheduled: some View {
+        VStack {
             Text("")
             Text("")
             Text("No events scheduled")
             Spacer()
         }
-        
-        else {
-            
-            List {
-                ForEach(eventModel.events) {event in
-                    
-                    HStack{
-                        Image(event.imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 75.0, height: 75.0)
-                            .clipped()
-                        VStack (alignment: .leading){
-                            Text(event.name)
-                                .bold()
-                            Text(event.location)
-                                .italic()
-                                .font(.subheadline)
-                        }
-                        Spacer()
-                        Text(event.time)
+    }
+    
+    var eventList: some View {
+        List {
+            ForEach(eventModel.events) {event in
+                
+                HStack{
+                    Image(event.imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 75.0, height: 75.0)
+                        .clipped()
+                    VStack (alignment: .leading){
+                        Text(event.name)
+                            .bold()
+                        Text(event.location)
+                            .italic()
                             .font(.subheadline)
                     }
-                    .onTapGesture {
-                        eventModel.selectedEvent = event
-                    }
+                    Spacer()
+                    Text(event.time)
+                        .font(.subheadline)
+                }
+                .onTapGesture {
+                    eventModel.selectedEvent = event
                 }
             }
-            .listStyle(.plain)
         }
+        .listStyle(.plain)
     }
-    }
-
-
+}
 
 
 #Preview {

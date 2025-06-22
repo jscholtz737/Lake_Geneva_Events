@@ -15,7 +15,6 @@ import FirebaseFirestore
     
     var events = [Event]()
     var selectedEvent: Event?
-    //var date = Date()
     
     func getEvents(date:Date) {
 

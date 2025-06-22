@@ -16,28 +16,11 @@ struct MapView: View {
     @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     
     var body: some View {
-            Map(position: $position, selection: $selectedEventId)
-            {
-                ForEach (eventModel.events) {event in
-                    Marker(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
-                        .tag(event.id)
-                }
-            }
-            .toolbarBackground(.hidden)
-            .onChange(of: selectedEventId) { oldValue, newValue in
-                let event = eventModel.events.first { event in
-                    event.id == selectedEventId
-                }
-                if event != nil {
-                    eventModel.selectedEvent = event
-                }
-            }
-            HStack {
-                Button(action: {
-                    position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.17, longitudeDelta: 0.17)))            }, label: {
-                        Text("Reset Map")
-                    })
-            }
+            
+        map
+        VStack {
+            resetMapButton
+        }
             .padding()
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.17, longitudeDelta: 0.17)))
@@ -45,6 +28,36 @@ struct MapView: View {
         }
     }
 
+// MARK: COMPONENTS
+
+extension MapView {
+    
+    var map: some View {
+        Map(position: $position, selection: $selectedEventId)
+        {
+            ForEach (eventModel.events) {event in
+                Marker(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
+                    .tag(event.id)
+            }
+        }
+        .toolbarBackground(.hidden)
+        .onChange(of: selectedEventId) { oldValue, newValue in
+            let event = eventModel.events.first { event in
+                event.id == selectedEventId
+            }
+            if event != nil {
+                eventModel.selectedEvent = event
+            }
+        }
+    }
+    
+    var resetMapButton: some View {
+        Button(action: {
+            position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.17, longitudeDelta: 0.17)))            }, label: {
+                Text("Reset Map")
+            })
+    }
+}
     
 
 #Preview {

@@ -13,57 +13,21 @@ struct EventDetailView: View {
     
     var body: some View {
         VStack{
-            Image(eventModel.selectedEvent?.imageName ?? "Generic")
-                .resizable()
-                .frame(height: 200)
-                .aspectRatio(contentMode: .fit)
-                .clipped()
-                .ignoresSafeArea()
-                .opacity(0.3)
-            
-            Text(eventModel.selectedEvent?.name ?? "")
-                .font(.largeTitle)
-                .bold()
-                .padding()
-                .multilineTextAlignment(.center)
+            eventPicture
+            eventName
         }
         VStack {
-            HStack{
-                Image(systemName: "location")
-                    .padding([.leading, .trailing])
-                    .foregroundColor(Color(.green))
-                    .font(.system(size: 18))
-                Text(eventModel.selectedEvent?.locationDetails ?? "")
-                    .font(.callout)
-                Spacer()
-            }
-            .padding(.top)
+            eventLocation
             
             Divider()
                 .padding(5)
             
-            HStack {
-                Image(systemName: "clock")
-                    .padding([.leading, .trailing])
-                    .foregroundColor(Color(.green))
-                    .font(.system(size: 18))
-                Text(eventModel.selectedEvent?.time ?? "")
-                    .font(.callout)
-                Spacer()
-            }
+            eventTime
             
             Divider()
                 .padding(5)
             
-            HStack {
-                Image(systemName: "book")
-                    .padding([.leading, .trailing])
-                    .foregroundColor(Color(.green))
-                    .font(.system(size: 18))
-                Text(eventModel.selectedEvent?.description ?? "")
-                    .font(.callout)
-                Spacer()
-            }
+            eventDescription
             
             Divider()
                 .padding(5)
@@ -83,6 +47,66 @@ struct EventDetailView: View {
             }
         }
         Spacer()
+    }
+}
+
+// MARK: COMPONENTS
+
+extension EventDetailView {
+    
+    var eventPicture: some View {
+        Image(eventModel.selectedEvent?.imageName ?? "Generic")
+            .resizable()
+            .frame(height: 200)
+            .aspectRatio(contentMode: .fit)
+            .clipped()
+            .ignoresSafeArea()
+            .opacity(0.3)
+    }
+    
+    var eventName: some View {
+        Text(eventModel.selectedEvent?.name ?? "")
+            .font(.largeTitle)
+            .bold()
+            .padding()
+            .multilineTextAlignment(.center)
+    }
+    
+    var eventLocation: some View {
+        HStack{
+            Image(systemName: "location")
+                .padding([.leading, .trailing])
+                .foregroundColor(Color(.green))
+                .font(.system(size: 18))
+            Text(eventModel.selectedEvent?.locationDetails ?? "")
+                .font(.callout)
+            Spacer()
+        }
+        .padding(.top)
+    }
+    
+    var eventTime: some View {
+        HStack {
+            Image(systemName: "clock")
+                .padding([.leading, .trailing])
+                .foregroundColor(Color(.green))
+                .font(.system(size: 18))
+            Text(eventModel.selectedEvent?.time ?? "")
+                .font(.callout)
+            Spacer()
+        }
+    }
+    
+    var eventDescription: some View {
+        HStack {
+            Image(systemName: "book")
+                .padding([.leading, .trailing])
+                .foregroundColor(Color(.green))
+                .font(.system(size: 18))
+            Text(eventModel.selectedEvent?.description ?? "")
+                .font(.callout)
+            Spacer()
+        }
     }
 }
 

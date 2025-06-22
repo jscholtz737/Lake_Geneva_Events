@@ -57,7 +57,7 @@ struct ContentView: View {
         }
     }
 
-//MARK:VIEWS
+// MARK:COMPONENTS
 extension ContentView {
     
     var title: some View {
@@ -97,8 +97,5 @@ extension ContentView {
     }
 }
 
-#Preview{
-    
-  
-    }
+
 
