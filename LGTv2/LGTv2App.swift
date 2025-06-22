@@ -21,14 +21,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct LGTv2App: App {
     // register app delegate for Firebase setup
       @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
- 
-    @State var event = EventModel()
     
       var body: some Scene {
         WindowGroup {
           NavigationView {
             ContentView()
-                  .environment(event)
+                  //.environment(event)
           }
         }
       }

@@ -12,8 +12,10 @@ import MapKit
 struct ContentView: View {
     
     @State var eventModel:EventModel = EventModel()
+    @State var crowdModel:CrowdModel = CrowdModel()
     @State private var calendarId: Int = 0
     @State var selectedTab = 0
+    @State var date = Date()
     
     
     var body: some View {
@@ -24,37 +26,10 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             VStack (spacing:0) {
-                Text("")
-                Text("Lake Geneva Events")
-                    .font(.largeTitle)
-                    .italic()
-                    .bold()
-                
-                DatePicker(
-                    "Selected Date",
-                    selection: $eventModel.date,
-                    in: Date()...,
-                    displayedComponents: [.date]
-                )
-                .padding([.top, .bottom])
-                .labelsHidden()
-                .id(calendarId)
-                .onChange(of: eventModel.date) {
-                    calendarId += 1
-                }
-                
-                WxView()
-                
-                Picker("", selection: $selectedTab) {
-                    Text("Map")
-                        .tag(0)
-                    Text("List")
-                        .tag(1)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(.top)
-                
-                
+                title
+                dateSelector
+                WxView(date:date)
+                mapListPicker
                 if selectedTab == 1 {
                     ListView()
                 }
@@ -63,87 +38,54 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                eventModel.getEvents()
+                eventModel.getEvents(date: date)
+                crowdModel.getCrowds(date: date)
             }
             .sheet(item: $eventModel.selectedEvent) { item in
                 EventDetailView()
             }
-            .onChange(of: eventModel.date) {
-                eventModel.getEvents()
+            .onChange(of: date) {
+                eventModel.getEvents(date: date)
+                crowdModel.getCrowds(date: date)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                eventModel.date = Date()
+                date = Date()
             }
-        }
+            }
         .environment(eventModel)
+        .environment(crowdModel)
+        }
     }
-}
 
-#Preview{
+//MARK:VIEWS
+extension ContentView {
     
-    @Previewable @State var selectedTab = 0
+    var title: some View {
+        VStack (spacing:0) {
+            Text("")
+            Text("Lake Geneva Events")
+                .font(.largeTitle)
+                .italic()
+                .bold()
+        }
+    }
     
-    @Previewable @State var date = Date()
-    
-    @Previewable @State var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
-    
-    @Previewable var eventList = Event(id: "1", name: "one", location: "two", locationDetails: "three", latitude: 0, longitude: 0, description: "stuff", link: "link", time: "8am", imageName: "LakeGeneva", date: ["Oct 4"])
-    
-    VStack {
-        Text("Lake Geneva Events")
-            .font(.largeTitle)
-            .italic()
-            .bold()
-        
+    var dateSelector: some View {
         DatePicker(
             "Selected Date",
             selection: $date,
             in: Date()...,
             displayedComponents: [.date]
         )
+        .padding([.top, .bottom])
         .labelsHidden()
-        
-        HStack{
-            VStack (spacing: 0) {
-                Text("Current Weather")
-                    .italic()
-                    .font(.subheadline)
-                    .padding(.leading)
-                    .padding(.top)
-                Image("113")
-                HStack {
-                    let stringTemp = "55"
-                    Text(stringTemp + "°")
-                        .padding(.trailing)
-                        .font(.subheadline)
-                    let stringWind = "11"
-                    Image(systemName: "wind")
-                        .font(.system(size: 15))
-                    Text(stringWind)
-                        .font(.subheadline)
-            }
+        .id(calendarId)
+        .onChange(of: date) {
+            calendarId += 1
         }
-            Spacer()
-            VStack (spacing: 0) {
-                Text ("Expected Crowds")
-                    .italic()
-                    .font(.subheadline)
-                    .padding(.trailing)
-                    .padding(.top)
-                Image(systemName: "person.fill")
-                            .foregroundColor(.green)
-                            .font(.system(size: 24))
-                            .scaledToFit()
-                            .frame(width: 48, height: 49)
-                            .padding(.trailing)
-                    Text("Low")
-                        .font(.subheadline)
-                        .padding(.trailing)
-                }
-            }
-         
-            }
-        
+    }
+    
+    var mapListPicker: some View {
         Picker("", selection: $selectedTab) {
             Text("Map")
                 .tag(0)
@@ -151,24 +93,12 @@ struct ContentView: View {
                 .tag(1)
         }
         .pickerStyle(SegmentedPickerStyle())
-        
-        
-        if selectedTab == 1 {
-            List{
-                HStack {
-                    Text(eventList.name)
-                    Text(eventList.description)
-                }
-            }
-        }
-        else {
-            Map()
-            HStack {
-                Button(action: {
-                    position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.17, longitudeDelta: 0.17)))            }, label: {
-                    Text("Reset Map")
-                })
-            }
-        }
+        .padding(.top)
+    }
+}
+
+#Preview{
+    
+  
     }
 

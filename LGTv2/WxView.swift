@@ -10,9 +10,11 @@ import SwiftUI
 struct WxView: View {
     
     @Environment(EventModel.self) var eventModel
+    @Environment(CrowdModel.self) var crowdModel
     @State var currentWx = Current()
     @State var dataService:DataService = DataService()
     @State var skyIcon = ""
+    @State var date:Date
     
     var body: some View {
         
@@ -69,7 +71,7 @@ struct WxView: View {
                         .padding(.trailing)
                         .padding(.top)
                     
-                    if eventModel.crowds.isEmpty {
+                    if crowdModel.crowds.isEmpty {
                         Image(systemName: "person.fill.questionmark")
                             .font(.system(size: 24))
                             .scaledToFit()
@@ -79,7 +81,7 @@ struct WxView: View {
                             .font(.subheadline)
                             .padding(.trailing)
                     } else {
-                        ForEach(eventModel.crowds) {crowd in
+                        ForEach(crowdModel.crowds) {crowd in
                             switch crowd.level {
                             case "Low":
                                 Image(systemName: "person.fill")
@@ -115,12 +117,6 @@ struct WxView: View {
                                 .padding(.trailing)
                         }
                     }
-                }
-                .onAppear {
-                    eventModel.getCrowds()
-                }
-                .onChange(of: eventModel.date) {
-                    eventModel.getCrowds()
                 }
                 }
                 .task {

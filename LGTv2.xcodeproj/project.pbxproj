@@ -18,6 +18,7 @@
 		1A9112A62C275D0E001A43CA /* WeatherUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112A52C275D0E001A43CA /* WeatherUpdate.swift */; };
 		1A9112A82C275D3F001A43CA /* SkyCond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112A72C275D3F001A43CA /* SkyCond.swift */; };
 		1A9112AA2C275D6F001A43CA /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112A92C275D6F001A43CA /* DataService.swift */; };
+		1A9D21C32E0735DA00E3D3F6 /* CrowdModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9D21C22E0735DA00E3D3F6 /* CrowdModel.swift */; };
 		1AB4C6262C2F6B750094D982 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB4C6252C2F6B750094D982 /* EventModel.swift */; };
 		1AB570A02C2D271700F4B4D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB5709F2C2D271700F4B4D8 /* FirebaseAuth */; };
 		1AB570A82C2DBD3300F4B4D8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB570A72C2DBD3300F4B4D8 /* FirebaseFirestore */; };
@@ -42,6 +43,7 @@
 		1A9112A52C275D0E001A43CA /* WeatherUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUpdate.swift; sourceTree = "<group>"; };
 		1A9112A72C275D3F001A43CA /* SkyCond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyCond.swift; sourceTree = "<group>"; };
 		1A9112A92C275D6F001A43CA /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		1A9D21C22E0735DA00E3D3F6 /* CrowdModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdModel.swift; sourceTree = "<group>"; };
 		1AB4C6252C2F6B750094D982 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1AD897FC2C495EF300CF23A6 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */,
 				1A9112932C275B0A001A43CA /* LGTv2App.swift */,
 				1AB4C6252C2F6B750094D982 /* EventModel.swift */,
+				1A9D21C22E0735DA00E3D3F6 /* CrowdModel.swift */,
 				1A9112952C275B0A001A43CA /* ContentView.swift */,
 				1AD897FE2C49674100CF23A6 /* WxView.swift */,
 				1A2548A82C2F5A5B000B4BBA /* MapView.swift */,
@@ -195,6 +198,7 @@
 				1AB4C6262C2F6B750094D982 /* EventModel.swift in Sources */,
 				1AD897FD2C495EF300CF23A6 /* ListView.swift in Sources */,
 				1A2548A92C2F5A5B000B4BBA /* MapView.swift in Sources */,
+				1A9D21C32E0735DA00E3D3F6 /* CrowdModel.swift in Sources */,
 				1A9112AA2C275D6F001A43CA /* DataService.swift in Sources */,
 				1A9112962C275B0A001A43CA /* ContentView.swift in Sources */,
 				1A9112A22C275C8C001A43CA /* Event.swift in Sources */,
