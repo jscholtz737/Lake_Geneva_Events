@@ -1,5 +1,5 @@
 //
-//  ListView.swift
+//  ListTabView.swift
 //  LGTv2
 //
 //  Created by Joseph Scholtz on 7/18/24.
@@ -7,24 +7,33 @@
 
 import SwiftUI
 
-struct ListView: View {
+struct ListTabView: View {
     
     @Environment(EventModel.self) var eventModel
-   
     
     var body: some View {
         
-        if eventModel.events.count == 0 {
-            noEventsScheduled
+        @Bindable var eventModel = eventModel
+        
+        VStack{
+            if eventModel.events.count == 0 {
+                noEventsScheduled
+            }
+            else {
+                eventList
+            }
         }
-        else {
-            eventList
+        .onAppear {
+            eventModel.getAllEvents()
+        }
+        .sheet(item: $eventModel.selectedEvent) { item in
+            EventDetailView()
         }
     }
-    }
+}
 
 // MARK: COMPONENTS
-extension ListView {
+extension ListTabView {
     
     var noEventsScheduled: some View {
         VStack {
@@ -68,4 +77,6 @@ extension ListView {
 
 #Preview {
     
+    ListTabView()
+        .environment(EventModel())
 }

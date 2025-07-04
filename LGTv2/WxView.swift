@@ -9,12 +9,10 @@ import SwiftUI
 
 struct WxView: View {
     
-    @Environment(EventModel.self) var eventModel
     @Environment(CrowdModel.self) var crowdModel
     @State var currentWx = Current()
     @State var dataService:DataService = DataService()
     @State var skyIcon = ""
-    @State var date:Date
     
     var body: some View {
         
@@ -156,5 +154,9 @@ extension WxView {
 
 
 #Preview {
+    
+    WxView()
+        .environment(EventModel())
+        .environment(CrowdModel())
     
 }

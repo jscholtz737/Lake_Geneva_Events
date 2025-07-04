@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A0CBFB92C8F734B000A92BF /* Crowds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CBFB82C8F734B000A92BF /* Crowds.swift */; };
-		1A2548A92C2F5A5B000B4BBA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2548A82C2F5A5B000B4BBA /* MapView.swift */; };
+		1A70B3822E0C7E8E00ECB941 /* MapTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A70B3812E0C7E8E00ECB941 /* MapTabView.swift */; };
 		1A9112942C275B0A001A43CA /* LGTv2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112932C275B0A001A43CA /* LGTv2App.swift */; };
 		1A9112962C275B0A001A43CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9112952C275B0A001A43CA /* ContentView.swift */; };
 		1A9112982C275B0D001A43CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A9112972C275B0D001A43CA /* Assets.xcassets */; };
@@ -23,7 +23,7 @@
 		1AB570A02C2D271700F4B4D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB5709F2C2D271700F4B4D8 /* FirebaseAuth */; };
 		1AB570A82C2DBD3300F4B4D8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB570A72C2DBD3300F4B4D8 /* FirebaseFirestore */; };
 		1AC1B8802CD031E400D51628 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */; };
-		1AD897FD2C495EF300CF23A6 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FC2C495EF300CF23A6 /* ListView.swift */; };
+		1AD897FD2C495EF300CF23A6 /* ListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FC2C495EF300CF23A6 /* ListTabView.swift */; };
 		1AD897FF2C49674100CF23A6 /* WxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FE2C49674100CF23A6 /* WxView.swift */; };
 		1AE4D31E2C27830600F9C34D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE4D31D2C27830600F9C34D /* FirebaseAnalytics */; };
 		1AE4D3202C27830600F9C34D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE4D31F2C27830600F9C34D /* FirebaseDatabaseSwift */; };
@@ -32,7 +32,7 @@
 /* Begin PBXFileReference section */
 		1A0CBFB72C8F49CC000A92BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1A0CBFB82C8F734B000A92BF /* Crowds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crowds.swift; sourceTree = "<group>"; };
-		1A2548A82C2F5A5B000B4BBA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		1A70B3812E0C7E8E00ECB941 /* MapTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTabView.swift; sourceTree = "<group>"; };
 		1A9112902C275B0A001A43CA /* LGTv2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGTv2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A9112932C275B0A001A43CA /* LGTv2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGTv2App.swift; sourceTree = "<group>"; };
 		1A9112952C275B0A001A43CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		1A9D21C22E0735DA00E3D3F6 /* CrowdModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdModel.swift; sourceTree = "<group>"; };
 		1AB4C6252C2F6B750094D982 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1AD897FC2C495EF300CF23A6 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		1AD897FC2C495EF300CF23A6 /* ListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTabView.swift; sourceTree = "<group>"; };
 		1AD897FE2C49674100CF23A6 /* WxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,9 +90,9 @@
 				1AB4C6252C2F6B750094D982 /* EventModel.swift */,
 				1A9D21C22E0735DA00E3D3F6 /* CrowdModel.swift */,
 				1A9112952C275B0A001A43CA /* ContentView.swift */,
+				1A70B3812E0C7E8E00ECB941 /* MapTabView.swift */,
+				1AD897FC2C495EF300CF23A6 /* ListTabView.swift */,
 				1AD897FE2C49674100CF23A6 /* WxView.swift */,
-				1A2548A82C2F5A5B000B4BBA /* MapView.swift */,
-				1AD897FC2C495EF300CF23A6 /* ListView.swift */,
 				1A9112A32C275CC5001A43CA /* EventDetailView.swift */,
 				1A9112A52C275D0E001A43CA /* WeatherUpdate.swift */,
 				1A9112A72C275D3F001A43CA /* SkyCond.swift */,
@@ -194,10 +194,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A9112A42C275CC5001A43CA /* EventDetailView.swift in Sources */,
+				1A70B3822E0C7E8E00ECB941 /* MapTabView.swift in Sources */,
 				1AD897FF2C49674100CF23A6 /* WxView.swift in Sources */,
 				1AB4C6262C2F6B750094D982 /* EventModel.swift in Sources */,
-				1AD897FD2C495EF300CF23A6 /* ListView.swift in Sources */,
-				1A2548A92C2F5A5B000B4BBA /* MapView.swift in Sources */,
+				1AD897FD2C495EF300CF23A6 /* ListTabView.swift in Sources */,
 				1A9D21C32E0735DA00E3D3F6 /* CrowdModel.swift in Sources */,
 				1A9112AA2C275D6F001A43CA /* DataService.swift in Sources */,
 				1A9112962C275B0A001A43CA /* ContentView.swift in Sources */,
@@ -349,7 +349,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,7 +387,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
