@@ -1,0 +1,38 @@
+# Mac OS X
+.DS_Store
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+
+# Build directories
+DerivedData/
+build/
+
+# Swift Package Manager (SPM)
+# Swift Package Manager adds xcuserdata/ to the .gitignore by default,
+# which is the primary ignore for using SPM with Xcode.
+# You might consider ignoring .swiftpm/xcode/ if you don't share schemes.
+
+# Dependency Managers (uncomment if you use them)
+# CocoaPods
+# Pods/
+# Podfile.lock # See notes below
+
+# Carthage
+# Carthage/Build/
+
+# Other
+*.swp
+*.lock
+
+# Sensitive Data (always ignore)
+# You should explicitly ignore files containing sensitive information (e.g., API keys, passwords, tokens).
+# Example:
+# MySecrets.plist
+
