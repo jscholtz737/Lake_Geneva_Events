@@ -25,7 +25,7 @@ struct WxView: View {
                     currentWx = await dataService.getWeather()
                    if let code = currentWx.condition.code {
                         if let day = currentWx.is_day {
-                            skyIcon = SkyCond.getIcon(code: code, day: day)
+                            skyIcon = DataService.getIcon(code: code, day: day)
                         }
                     }
                 }
@@ -35,7 +35,7 @@ struct WxView: View {
                             currentWx = await dataService.getWeather()
                             if let code = currentWx.condition.code {
                                 if let day = currentWx.is_day {
-                                    skyIcon = SkyCond.getIcon(code: code, day: day)
+                                    skyIcon = DataService.getIcon(code: code, day: day)
                                 }
                             }
                         }

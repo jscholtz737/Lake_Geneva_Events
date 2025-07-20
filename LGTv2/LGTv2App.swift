@@ -24,10 +24,7 @@ struct LGTv2App: App {
     
       var body: some Scene {
         WindowGroup {
-          NavigationView {
             ContentView()
-                  //.environment(event)
-          }
         }
       }
     }
