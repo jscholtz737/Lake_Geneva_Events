@@ -54,6 +54,7 @@ extension ListTabView {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 75.0, height: 75.0)
                         .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     VStack (alignment: .leading){
                         Text(event.name)
                             .bold()
@@ -65,6 +66,7 @@ extension ListTabView {
                     Text(event.time)
                         .font(.subheadline)
                 }
+                .alignmentGuide(.listRowSeparatorLeading) {d in d[.leading]}
                 .onTapGesture {
                     eventModel.selectedEvent = event
                 }
