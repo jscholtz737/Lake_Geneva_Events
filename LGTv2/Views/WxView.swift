@@ -136,7 +136,7 @@ extension WxView {
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
                     default:
-                        Image(systemName: "person.fill.questionmark")
+                        Image(systemName: "person.fill.xmark")
                             .font(.system(size: 24))
                             .scaledToFit()
                             .frame(width: 48, height: 49)

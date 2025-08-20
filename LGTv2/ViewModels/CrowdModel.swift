@@ -13,8 +13,13 @@ import FirebaseFirestore
 
 @Observable class CrowdModel {
     
-    var crowds = [Crowds]()
-    //var date = Date()
+    var crowds: [Crowds]
+    var date = Date()
+    
+    init() {
+        self.crowds = []
+        self.getCrowds(date: date)
+    }
     
     func getCrowds(date:Date) {
 

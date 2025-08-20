@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Event: Identifiable {
+struct Event: Identifiable, Equatable, Codable {
     
     var id: String
     var name: String
@@ -20,6 +20,6 @@ struct Event: Identifiable {
     var link: String
     var time: String
     var imageName: String
-    var date: [String]
+    var date: Date
     
 }

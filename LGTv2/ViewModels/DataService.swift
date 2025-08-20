@@ -37,6 +37,8 @@ import FirebaseFirestore
         return Current()
     }
     
+    
+    
     static func getIcon(code:Int, day:Int) -> String {
         
         if day == 1 {

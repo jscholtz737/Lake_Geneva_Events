@@ -14,10 +14,7 @@ struct MapTabView: View {
     @Environment(EventModel.self) var eventModel
     @Environment(CrowdModel.self) var crowdModel
     @State private var calendarId: Int = 0
-    @State var selectedView = 0
     @State var date = Date()
-    
-    @State var selectedEventId: String?
     @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     
     
@@ -36,8 +33,8 @@ struct MapTabView: View {
                 title
                 dateSelector
                 WxView()
-                map
-            }
+                mapSection
+                }
             .sheet(item: $eventModel.selectedEvent) { item in
                 EventDetailView()
             }
@@ -80,23 +77,14 @@ extension MapTabView {
         }
     }
     
-    var map: some View {
-        Map(position: $position, selection: $selectedEventId)
-        {
-            ForEach (eventModel.events) {event in
-                Marker(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
-                    .tag(event.id)
+    var mapSection: some View {
+        Map(position: $position) {
+            ForEach(eventModel.events) { event in
+                Annotation(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)) {
+                    Image(systemName: "mappin.and.ellipse")
+                }
             }
-        }
-        .toolbarBackground(.hidden)
-        .onChange(of: selectedEventId) { oldValue, newValue in
-            let event = eventModel.events.first { event in
-                event.id == selectedEventId
             }
-            if event != nil {
-                eventModel.selectedEvent = event
-            }
-        }
     }
     
     //reset button to move map back to center after moving or zooming.  from ver1,not currently used in ver2.

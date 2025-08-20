@@ -13,9 +13,9 @@ struct ContentView: View {
     
     @State var eventModel:EventModel = EventModel()
     @State var crowdModel:CrowdModel = CrowdModel()
-    @State private var calendarId: Int = 0
-    @State var selectedView = 0
-    @State var date = Date()
+    //@State private var calendarId: Int = 0
+    //@State var selectedView = 0
+    //@State var date = Date()
     @State var selectedTab = 0
     
     
@@ -31,10 +31,6 @@ struct ContentView: View {
             Tab("Send", systemImage: "mail", value: 2) {
                 Text("Send event")
             }
-        }
-        .onAppear {
-            eventModel.getEvents(date: date)
-            crowdModel.getCrowds(date: date)
         }
         .environment(eventModel)
         .environment(crowdModel)
