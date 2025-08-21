@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Event: Identifiable, Equatable, Codable {
+struct Event: Identifiable, Equatable {
     
     var id: String
     var name: String
