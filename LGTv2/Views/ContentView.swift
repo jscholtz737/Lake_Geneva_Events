@@ -13,25 +13,21 @@ struct ContentView: View {
     
     @State var eventModel:EventModel = EventModel()
     @State var crowdModel:CrowdModel = CrowdModel()
-    //@State private var calendarId: Int = 0
-    //@State var selectedView = 0
-    //@State var date = Date()
     @State var selectedTab = 0
-    
-    
+  
     var body: some View {
         
-        TabView(selection: $selectedTab) {
-            Tab("Map", systemImage: "map.fill", value: 0) {
-                MapTabView()
+            TabView(selection: $selectedTab) {
+                Tab("Map", systemImage: "map.fill", value: 0) {
+                    MapTabView()
+                }
+                Tab("All", systemImage: "calendar", value: 1) {
+                    ListTabView()
+                }
+                Tab("Send", systemImage: "mail", value: 2) {
+                    Text("Send event")
+                }
             }
-            Tab("All", systemImage: "calendar", value: 1) {
-                ListTabView()
-            }
-            Tab("Send", systemImage: "mail", value: 2) {
-                Text("Send event")
-            }
-        }
         .environment(eventModel)
         .environment(crowdModel)
     }
@@ -44,3 +40,4 @@ struct ContentView: View {
         .environment(CrowdModel())
     
 }
+

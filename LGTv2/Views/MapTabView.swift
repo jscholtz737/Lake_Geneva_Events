@@ -14,6 +14,7 @@ struct MapTabView: View {
     @Environment(EventModel.self) var eventModel
     @Environment(CrowdModel.self) var crowdModel
     @State private var calendarId: Int = 0
+    @State var calendarDisplayed = false
     @State var date = Date()
     @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     
@@ -22,60 +23,44 @@ struct MapTabView: View {
         
         @Bindable var eventModel = eventModel
         
-        ZStack {
-            LinearGradient(
-                colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)),Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))],
-                startPoint: .top,
-                endPoint: .bottom)
-            .ignoresSafeArea()
-            
-            VStack (spacing:0) {
-                title
-                dateSelector
-                WxView()
+        NavigationStack{
+            ZStack {
                 mapSection
+                VStack (spacing:0) {
+                    WxView()
                 }
-            .sheet(item: $eventModel.selectedEvent) { item in
-                EventDetailView()
-            }
-            .onChange(of: date) {
-                eventModel.getEvents(date: date)
-                crowdModel.getCrowds(date: date)
+                .sheet(item: $eventModel.selectedEvent) { item in
+                    EventDetailView()
                 }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                date = Date()
+                .onChange(of: date) {
+                    eventModel.getEvents(date: date)
+                    crowdModel.getCrowds(date: date)
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                    date = Date()
+                }
             }
-        }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("TopLeading")
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    dateSelector
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Text("Trailing")
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            }
+        
     }
 }
 
 // MARK:COMPONENTS
 extension MapTabView {
-    
-    var title: some View {
-        VStack (spacing:0) {
-            Text("")
-            Text("Lake Geneva Events")
-                .font(.largeTitle)
-                .italic()
-                .bold()
-        }
-    }
-    
-    var dateSelector: some View {
-        DatePicker(
-            "Selected Date",
-            selection: $date,
-            in: Date()...,
-            displayedComponents: [.date]
-        )
-        .padding([.top, .bottom])
-        .labelsHidden()
-        .id(calendarId)
-        .onChange(of: date) {
-            calendarId += 1
-        }
-    }
     
     var mapSection: some View {
         Map(position: $position) {
@@ -85,6 +70,32 @@ extension MapTabView {
                 }
             }
             }
+    }
+    
+    var dateSelector: some View {
+        HStack {
+            Text(date, format: .dateTime.month().day())
+                .font(.title2)
+                .overlay{
+                    DatePicker(
+                        "Select Date",
+                        selection: $date,
+                        in: Date()...,
+                        displayedComponents: [.date]
+                    )
+                    .blendMode(.destinationOver)
+                    .labelsHidden()
+                    .id(calendarId)
+                    .onChange(of: date) {
+                        calendarId += 1
+                    }
+                }
+                
+            Image(systemName: "arrowtriangle.down.fill")
+                .font(.caption)
+                .rotationEffect(calendarDisplayed ? .degrees(-180) : .degrees(0))
+        }
+        
     }
     
     //reset button to move map back to center after moving or zooming.  from ver1,not currently used in ver2.
