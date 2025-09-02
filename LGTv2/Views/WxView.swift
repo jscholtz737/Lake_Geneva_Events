@@ -18,8 +18,6 @@ struct WxView: View {
         
             HStack {
                 currentWeather
-                Spacer()
-                expectedCrowds
                 }
                 .task {
                     currentWx = await dataService.getWeather()
@@ -48,12 +46,7 @@ struct WxView: View {
 extension WxView {
     
     var currentWeather: some View {
-        VStack (spacing: 0) {
-            Text("Current Weather")
-                .italic()
-                .font(.subheadline)
-                .padding(.leading)
-                .padding(.top)
+        VStack (spacing: -10) {
             
             if skyIcon == "" {
                 Image(systemName: "network.slash")
@@ -64,94 +57,19 @@ extension WxView {
                 Image(skyIcon)
             }
             
-            HStack {
-                if currentWx.temp_f == nil {
-                    let stringTemp = "--"
-                    Text(stringTemp + "°")
-                        .padding(.trailing)
-                        .font(.subheadline)
-                } else {
-                    let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
-                    Text(stringTemp + "°")
-                        .padding(.trailing)
-                        .font(.subheadline)
-                }
-                
-                Image(systemName: "wind")
-                    .font(.system(size: 15))
-                if currentWx.wind_mph == nil {
-                    let stringWind = "--"
-                    Text(stringWind)
-                        .padding(.trailing)
-                        .font(.subheadline)
-                } else {
-                    let stringWind = String(format: "%1.f", currentWx.wind_mph ?? "--")
-                    Text(stringWind)
-                        .padding(.trailing)
-                        .font(.subheadline)
-                }
-        }
-    }
-    }
-    
-    var expectedCrowds: some View {
-        VStack (spacing: 0) {
-            Text ("Expected Crowds")
-                .italic()
-                .font(.subheadline)
-                .padding(.trailing)
-                .padding(.top)
-            
-            if crowdModel.crowds.isEmpty {
-                Image(systemName: "person.fill.questionmark")
-                    .font(.system(size: 24))
-                    .scaledToFit()
-                    .frame(width: 48, height: 49)
+            if currentWx.temp_f == nil {
+                let stringTemp = "--"
+                Text(stringTemp + "°")
                     .padding(.trailing)
-                Text("Unknown")
                     .font(.subheadline)
-                    .padding(.trailing)
             } else {
-                ForEach(crowdModel.crowds) {crowd in
-                    switch crowd.level {
-                    case "Low":
-                        Image(systemName: "person.fill")
-                            .foregroundColor(.green)
-                            .font(.system(size: 24))
-                            .scaledToFit()
-                            .frame(width: 48, height: 49)
-                            .padding(.trailing)
-                    case "Moderate":
-                        Image(systemName: "person.2.fill")
-                            .foregroundColor(.orange)
-                            .font(.system(size: 24))
-                            .scaledToFit()
-                            .frame(width: 48, height: 49)
-                            .padding(.trailing)
-                    case "Heavy":
-                        Image(systemName: "person.3.fill")
-                            .foregroundColor(.red)
-                            .font(.system(size: 24))
-                            .scaledToFit()
-                            .frame(width: 48, height: 49)
-                            .padding(.trailing)
-                    default:
-                        Image(systemName: "person.fill.xmark")
-                            .font(.system(size: 24))
-                            .scaledToFit()
-                            .frame(width: 48, height: 49)
-                            .padding(.trailing)
-                    }
-                    
-                    Text(crowd.level)
-                        .font(.subheadline)
-                        .padding(.trailing)
-                }
+                let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
+                Text(stringTemp + "°")
+                    .font(.subheadline)
             }
         }
     }
 }
-
 
 #Preview {
     

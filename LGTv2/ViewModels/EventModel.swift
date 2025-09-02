@@ -31,7 +31,7 @@ import FirebaseFirestore
         let db = Firestore.firestore()
             
         let events = db.collection("eventsV2")
-        let query = events.whereField("date", isGreaterThan: startOfDay).whereField("date", isLessThan: endOfDay)
+        let query = events.whereField("startDate", isGreaterThan: startOfDay).whereField("startDate", isLessThan: endOfDay)
         query.getDocuments { QuerySnapshot, error in
                 
                 if error == nil {
@@ -43,7 +43,7 @@ import FirebaseFirestore
                             self.events = snapshot.documents.map { d in
                                 
                                 //create a Event item for each document returned
-                                return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", locationDetails: d["locationDetails"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", link: d["link"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "Generic", date: d["date"] as? Date ?? Date.distantFuture)
+                                return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", locationDetails: d["locationDetails"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", link: d["link"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "Generic", startDate: d["startDate"] as? Date ?? Date.distantFuture, endDate: d["endDate"] as? Date ?? Date.distantFuture, recurring: d["recurring"] as? String ?? "")
                             }
                         }
                     }
@@ -63,7 +63,7 @@ import FirebaseFirestore
         let db = Firestore.firestore()
         
         let events = db.collection("eventsV2")
-        let query = events.whereField("date", isGreaterThanOrEqualTo: startOfDay)
+        let query = events.whereField("startDate", isGreaterThanOrEqualTo: startOfDay)
         query.getDocuments { QuerySnapshot, error in
             
             if error == nil {
@@ -75,7 +75,7 @@ import FirebaseFirestore
                         self.events = snapshot.documents.map { d in
                             
                             //create a Event item for each document returned
-                            return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", locationDetails: d["locationDetails"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", link: d["link"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "Generic", date: d["date"] as? Date ?? Date.distantFuture)
+                            return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", locationDetails: d["locationDetails"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", link: d["link"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "Generic", startDate: d["startDate"] as? Date ?? Date.distantFuture, endDate: d["endDate"] as? Date ?? Date.distantFuture, recurring: d["recurring"] as? String ?? "")
                         }
                     }
                 }
