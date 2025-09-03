@@ -26,7 +26,7 @@ struct MapTabView: View {
         
         NavigationStack{
             ZStack {
-                mapSection
+                mapWithEvents
             }
             .toolbar {
                 ToolbarItem(placement:.topBarLeading) {
@@ -43,12 +43,7 @@ struct MapTabView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .onChange(of: selectedEventId) { oldValue, newValue in
-                let event = eventModel.events.first { event in
-                    event.id == selectedEventId
-                }
-                if event != nil {
-                    eventModel.selectedEvent = event
-                }
+                setSelectedEvent()
             }
             .sheet(item: $eventModel.selectedEvent) { item in
                 EventDetailView()
@@ -67,7 +62,7 @@ struct MapTabView: View {
 // MARK:COMPONENTS
 extension MapTabView {
     
-    var mapSection: some View {
+    var mapWithEvents: some View {
         Map(position: $position, selection: $selectedEventId) {
             ForEach(eventModel.events) { event in
                 Annotation(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)) {
@@ -110,6 +105,15 @@ extension MapTabView {
             position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.17, longitudeDelta: 0.17)))            }, label: {
                 Text("Reset Map")
             })
+    }
+    
+    func setSelectedEvent() {
+        let event = eventModel.events.first { event in
+            event.id == selectedEventId
+        }
+        if event != nil {
+            eventModel.selectedEvent = event
+        }
     }
 }
 
