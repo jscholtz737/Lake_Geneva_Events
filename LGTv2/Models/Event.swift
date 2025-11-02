@@ -20,8 +20,8 @@ struct Event: Identifiable, Equatable {
     var link: String
     var time: String
     var imageName: String
-    var startDate: Date
-    var endDate: Date
+    var startDate: Timestamp
+    var endDate: Timestamp
     var recurring: String
     
 }

@@ -49,12 +49,12 @@ struct MapTabView: View {
                 EventDetailView()
             }
             .onChange(of: date) {
-                eventModel.getEvents(date: date)
+                //eventModel.getEvents(date: date)
                 crowdModel.getCrowds(date: date)
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                date = Date()
-            }
+//            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+//                date = Date()
+//            }
         }
     }
 }

@@ -23,9 +23,9 @@ struct ListTabView: View {
                 eventList
             }
         }
-        .onAppear {
-            eventModel.getAllEvents()
-        }
+//        .onAppear {
+//            eventModel.getAllEvents()
+//        }
         .sheet(item: $eventModel.selectedEvent) { item in
             EventDetailView()
         }
