@@ -11,7 +11,7 @@ import MapKit
 
 struct ContentView: View {
     
-    @State var eventModel:EventModel = EventModel()
+    @State private var eventModel:EventModel = EventModel()
     @State var crowdModel:CrowdModel = CrowdModel()
     @State var selectedTab = 0
   

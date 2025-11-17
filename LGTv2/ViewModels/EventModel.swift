@@ -45,6 +45,7 @@ import FirebaseFirestore
                                 //create a Event item for each document returned
                                 return Event(id: d.documentID, name: d["name"] as? String ?? "", location: d["location"] as? String ?? "", locationDetails: d["locationDetails"] as? String ?? "", latitude: d["latitude"] as? Double ?? 0, longitude: d["longitude"] as? Double ?? 0, description: d["description"] as? String ?? "", link: d["link"] as? String ?? "", time: d["time"] as? String ?? "", imageName: d["imageName"] as? String ?? "Generic", startDate: d["startDate"] as? Timestamp ?? Timestamp(), endDate: d["endDate"] as? Timestamp ?? Timestamp(), recurring: d["recurring"] as? String ?? "")
                             }
+                            self.addRecurringEvents()
                         }
                     }
                 }
@@ -52,10 +53,56 @@ import FirebaseFirestore
                     print(error?.localizedDescription ?? "db error")
                 }
             }
-        //STUCK HERE. want to add a function that adds recurring events to 'events'.  however, 'events' appears to
-        //not yet be populated by the time code gets here.  Prob something to do with the async.  As a result,
-        //cannot iterate over 'events'  to identify which ones have a 'weekly' or 'daily' recurring field
-        //in firebase 'eventsV2.  Have to figure out how to delay the execution of this function until 'events'
-        //is populated with Event objects.
+    }
+    
+    func addRecurringEvents() {
+        for event in events {
+            switch event.recurring {
+            case "":
+                break
+            case "daily":
+                addDailyEvents(event: event)
+            case "weekly":
+                addWeeklyEvents(event: event)
+            default:
+                break
+            }
+        }
+    }
+    
+    func addDailyEvents(event:Event) {
+        
+        let endDate = event.endDate.dateValue()
+        var nextDate = event.startDate.dateValue()
+         while true {
+            nextDate = Calendar.current.date(byAdding: .day, value: 1, to: nextDate) ?? endDate
+            if nextDate > endDate { break }
+            var newEvent = event
+            newEvent.startDate = Timestamp(date: nextDate)
+            newEvent.endDate = Timestamp(date: nextDate)
+            events.append(newEvent)
+        }
+    }
+    
+    func addWeeklyEvents(event:Event) {
+        
+        let endDate = event.endDate.dateValue()
+        var nextDate = event.startDate.dateValue()
+        while true {
+            nextDate = Calendar.current.date(byAdding: .day, value: 7, to: nextDate) ?? endDate
+            print("next date: \(nextDate) end date: \(endDate)")
+            if nextDate > endDate { break }
+            var newEvent = event
+            newEvent.startDate = Timestamp(date: nextDate)
+            newEvent.endDate = Timestamp(date: nextDate)
+            events.append(newEvent)
+        }
+    }
+    
+    func printEvents() {
+        for event in events {
+            print("\(event.name) on \(event.startDate.dateValue())")
+        }
     }
 }
+

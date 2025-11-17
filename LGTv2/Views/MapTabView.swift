@@ -35,7 +35,9 @@ struct MapTabView: View {
                 
                 ToolbarItem(placement: .principal) {
                     dateSelector
+                        .border(.orange, width: 2) //border for testing
                 }
+                
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     CrowdView()
