@@ -70,6 +70,6 @@ extension CrowdView {
 
 #Preview {
     CrowdView()
-        .environment(EventModel())
+        .environment(MapTabViewModel())
         .environment(CrowdModel())
 }

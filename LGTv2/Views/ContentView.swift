@@ -10,8 +10,8 @@ import Foundation
 import MapKit
 
 struct ContentView: View {
-    
-    @State private var eventModel:EventModel = EventModel()
+
+    @State private var mapTabViewModel:MapTabViewModel = MapTabViewModel()
     @State var crowdModel:CrowdModel = CrowdModel()
     @State var selectedTab = 0
   
@@ -28,15 +28,15 @@ struct ContentView: View {
                     Text("Send event")
                 }
             }
-        .environment(eventModel)
-        .environment(crowdModel)
+            .environment(mapTabViewModel)
+            .environment(crowdModel)
     }
 }
 
 #Preview {
     
     ContentView()
-        .environment(EventModel())
+        .environment(MapTabViewModel())
         .environment(CrowdModel())
     
 }

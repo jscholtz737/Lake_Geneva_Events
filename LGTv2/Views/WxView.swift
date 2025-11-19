@@ -74,7 +74,7 @@ extension WxView {
 #Preview {
     
     WxView()
-        .environment(EventModel())
+        .environment(MapTabViewModel())
         .environment(CrowdModel())
     
 }

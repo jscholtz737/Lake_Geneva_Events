@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EventDetailView: View {
     
-    @Environment(EventModel.self) var eventModel
+    @Environment(MapTabViewModel.self) var mapTabViewModel
     
     var body: some View {
         VStack{
@@ -32,7 +32,7 @@ struct EventDetailView: View {
             Divider()
                 .padding(5)
             
-            if let link = eventModel.selectedEvent?.link {
+            if let link = mapTabViewModel.selectedEvent?.link {
                 if link != "" {
                     HStack {
                         Image(systemName: "link")
@@ -55,7 +55,7 @@ struct EventDetailView: View {
 extension EventDetailView {
     
     var eventPicture: some View {
-        Image(eventModel.selectedEvent?.imageName ?? "Generic")
+        Image(mapTabViewModel.selectedEvent?.imageName ?? "Generic")
             .resizable()
             .frame(height: 200)
             .aspectRatio(contentMode: .fit)
@@ -65,7 +65,7 @@ extension EventDetailView {
     }
     
     var eventName: some View {
-        Text(eventModel.selectedEvent?.name ?? "")
+        Text(mapTabViewModel.selectedEvent?.name ?? "")
             .font(.largeTitle)
             .bold()
             .padding()
@@ -78,7 +78,7 @@ extension EventDetailView {
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
                 .font(.system(size: 18))
-            Text(eventModel.selectedEvent?.locationDetails ?? "")
+            Text(mapTabViewModel.selectedEvent?.locationDetails ?? "")
                 .font(.callout)
             Spacer()
         }
@@ -91,7 +91,7 @@ extension EventDetailView {
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
                 .font(.system(size: 18))
-            Text(eventModel.selectedEvent?.time ?? "")
+            Text(mapTabViewModel.selectedEvent?.time ?? "")
                 .font(.callout)
             Spacer()
         }
@@ -103,7 +103,7 @@ extension EventDetailView {
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
                 .font(.system(size: 18))
-            Text(eventModel.selectedEvent?.description ?? "")
+            Text(mapTabViewModel.selectedEvent?.description ?? "")
                 .font(.callout)
             Spacer()
         }
@@ -113,7 +113,6 @@ extension EventDetailView {
 #Preview {
     
     EventDetailView()
-        .environment(EventModel())
+        .environment(MapTabViewModel())
     
 }
-

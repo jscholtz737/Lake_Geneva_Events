@@ -11,7 +11,8 @@ import MapKit
 
 struct MapTabView: View {
     
-    @Environment(EventModel.self) var eventModel
+    
+    @Environment(MapTabViewModel.self) var mapTabViewModel
     @Environment(CrowdModel.self) var crowdModel
     @State private var calendarId: Int = 0
     @State var calendarDisplayed = false
@@ -22,11 +23,14 @@ struct MapTabView: View {
     
     var body: some View {
         
-        @Bindable var eventModel = eventModel
+        @Bindable var mapTabViewModel = mapTabViewModel
         
         NavigationStack{
             ZStack {
                 mapWithEvents
+            }
+            .onAppear() {
+                mapTabViewModel.filterForSelectedDate(date: date)
             }
             .toolbar {
                 ToolbarItem(placement:.topBarLeading) {
@@ -47,16 +51,16 @@ struct MapTabView: View {
             .onChange(of: selectedEventId) { oldValue, newValue in
                 setSelectedEvent()
             }
-            .sheet(item: $eventModel.selectedEvent) { item in
+            .sheet(item: $mapTabViewModel.selectedEvent) { item in
                 EventDetailView()
             }
             .onChange(of: date) {
-                //eventModel.getEvents(date: date)
+                mapTabViewModel.filterForSelectedDate(date: date)
                 crowdModel.getCrowds(date: date)
             }
-//            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-//                date = Date()
-//            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                date = Date()
+            }
         }
     }
 }
@@ -66,7 +70,7 @@ extension MapTabView {
     
     var mapWithEvents: some View {
         Map(position: $position, selection: $selectedEventId) {
-            ForEach(eventModel.events) { event in
+            ForEach(mapTabViewModel.filteredEvents) { event in
                 Annotation(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)) {
                     Image(systemName: "mappin.and.ellipse")
                 }
@@ -110,11 +114,11 @@ extension MapTabView {
     }
     
     func setSelectedEvent() {
-        let event = eventModel.events.first { event in
+        let event = mapTabViewModel.events.first { event in
             event.id == selectedEventId
         }
         if event != nil {
-            eventModel.selectedEvent = event
+            mapTabViewModel.selectedEvent = event
         }
     }
 }
@@ -122,7 +126,7 @@ extension MapTabView {
 #Preview {
     
     MapTabView()
-        .environment(EventModel())
+        .environment(MapTabViewModel())
         .environment(CrowdModel())
     
 }

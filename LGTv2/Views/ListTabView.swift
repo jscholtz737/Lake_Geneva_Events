@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListTabView: View {
     
-    @Environment(EventModel.self) var eventModel
+    @Environment(MapTabViewModel.self) var eventModel
     
     var body: some View {
         
@@ -80,5 +80,5 @@ extension ListTabView {
 #Preview {
     
     ListTabView()
-        .environment(EventModel())
+        .environment(MapTabViewModel())
 }

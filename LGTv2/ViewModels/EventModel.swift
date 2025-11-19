@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 
-@Observable class EventModel {
+@Observable class MapTabViewModel {
     
     var events: [Event]
     let date = Date()

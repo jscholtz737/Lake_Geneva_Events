@@ -11,6 +11,83 @@ import FirebaseFirestore
 
 @Observable class DataService {
     
+    var events: [Event] = []
+    var date: Date { Date() }
+    
+    func getFirebaseEvents() async {
+        let db = Firestore.firestore()
+        let eventsCollection = db.collection("eventsV2")
+        let query = eventsCollection.whereField("endDate", isGreaterThan: date)
+        do {
+            let snapshot = try await query.getDocuments()
+            await MainActor.run {
+                self.events = snapshot.documents.map { d in
+                    return Event(
+                        id: d.documentID,
+                        name: d["name"] as? String ?? "",
+                        location: d["location"] as? String ?? "",
+                        locationDetails: d["locationDetails"] as? String ?? "",
+                        latitude: d["latitude"] as? Double ?? 0,
+                        longitude: d["longitude"] as? Double ?? 0,
+                        description: d["description"] as? String ?? "",
+                        link: d["link"] as? String ?? "",
+                        time: d["time"] as? String ?? "",
+                        imageName: d["imageName"] as? String ?? "Generic",
+                        startDate: d["startDate"] as? Timestamp ?? Timestamp(),
+                        endDate: d["endDate"] as? Timestamp ?? Timestamp(),
+                        recurring: d["recurring"] as? String ?? ""
+                    )
+                }
+                self.addRecurringEvents()
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func addRecurringEvents() {
+        for event in events {
+            switch event.recurring {
+            case "":
+                break
+            case "daily":
+                addDailyEvents(event: event)
+            case "weekly":
+                addWeeklyEvents(event: event)
+            default:
+                break
+            }
+        }
+    }
+    
+    func addDailyEvents(event:Event) {
+        
+        let endDate = event.endDate.dateValue()
+        var nextDate = event.startDate.dateValue()
+         while true {
+            nextDate = Calendar.current.date(byAdding: .day, value: 1, to: nextDate) ?? endDate
+            if nextDate > endDate { break }
+            var newEvent = event
+            newEvent.startDate = Timestamp(date: nextDate)
+            newEvent.endDate = Timestamp(date: nextDate)
+            events.append(newEvent)
+        }
+    }
+    
+    func addWeeklyEvents(event:Event) {
+        
+        let endDate = event.endDate.dateValue()
+        var nextDate = event.startDate.dateValue()
+        while true {
+            nextDate = Calendar.current.date(byAdding: .day, value: 7, to: nextDate) ?? endDate
+            if nextDate > endDate { break }
+            var newEvent = event
+            newEvent.startDate = Timestamp(date: nextDate)
+            newEvent.endDate = Timestamp(date: nextDate)
+            events.append(newEvent)
+        }
+    }
+    
     func getWeather() async -> Current {
         
         //check if api key exists
