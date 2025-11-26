@@ -9,28 +9,26 @@ import SwiftUI
 
 struct ListTabView: View {
     
-    @Environment(MapTabViewModel.self) var eventModel
+    var date = Date()
+    @State private var listTabViewModel:ListTabViewModel = ListTabViewModel()
+    @State var dateGroup: Date?
     
     var body: some View {
-        
-        @Bindable var eventModel = eventModel
-        
-        VStack{
-            if eventModel.events.count == 0 {
-                noEventsScheduled
+            VStack {
+                if listTabViewModel.eventsByDate.count == 0 {
+                    noEventsScheduled
+                }
+                else {
+                    eventList
+                }
             }
-            else {
-                eventList
+            .sheet(item: $listTabViewModel.selectedEvent) { item in
+                EventDetailView(event: item)
+                    .presentationDetents([.medium, .large]) 
             }
-        }
-//        .onAppear {
-//            eventModel.getAllEvents()
-//        }
-        .sheet(item: $eventModel.selectedEvent) { item in
-            EventDetailView()
-        }
     }
 }
+    
 
 // MARK: COMPONENTS
 extension ListTabView {
@@ -45,30 +43,26 @@ extension ListTabView {
     }
     
     var eventList: some View {
-        List {
-            ForEach(eventModel.events) {event in
-                
-                HStack{
-                    Image(event.imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 75.0, height: 75.0)
-                        .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    VStack (alignment: .leading){
-                        Text(event.name)
-                            .bold()
-                        Text(event.location)
-                            .italic()
-                            .font(.subheadline)
+        // Group events by day and sort days
+        let groupedByDay = Dictionary(grouping: listTabViewModel.eventsByDate) { event in
+            Calendar.current.startOfDay(for: event.startDate.dateValue())
+        }
+        let sortedDays = groupedByDay.keys.sorted()
+
+        return List {
+            ForEach(sortedDays, id: \.self) { day in
+                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day()))) {
+                    // Optionally sort events within a day by start time
+                    let events = (groupedByDay[day] ?? []).sorted { lhs, rhs in
+                        lhs.startDate.dateValue() < rhs.startDate.dateValue()
                     }
-                    Spacer()
-                    Text(event.time)
-                        .font(.subheadline)
-                }
-                .alignmentGuide(.listRowSeparatorLeading) {d in d[.leading]}
-                .onTapGesture {
-                    eventModel.selectedEvent = event
+                    ForEach(events) { event in
+                        ListCard(event: event)
+                        .alignmentGuide(.listRowSeparatorLeading) { d in d[.leading] }
+                        .onTapGesture {
+                            listTabViewModel.selectedEvent = event
+                        }
+                    }
                 }
             }
         }
@@ -80,5 +74,5 @@ extension ListTabView {
 #Preview {
     
     ListTabView()
-        .environment(MapTabViewModel())
+        .environment(MapTabViewModel()) //MapTabViewModel runs the getFireBaseEvents function
 }

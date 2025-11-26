@@ -11,7 +11,6 @@ import MapKit
 
 struct ContentView: View {
 
-    @State private var mapTabViewModel:MapTabViewModel = MapTabViewModel()
     @State var crowdModel:CrowdModel = CrowdModel()
     @State var selectedTab = 0
   
@@ -28,7 +27,7 @@ struct ContentView: View {
                     Text("Send event")
                 }
             }
-            .environment(mapTabViewModel)
+            //.environment(DataService.shared)
             .environment(crowdModel)
     }
 }
@@ -37,6 +36,7 @@ struct ContentView: View {
     
     ContentView()
         .environment(MapTabViewModel())
+        .environment(ListTabViewModel())
         .environment(CrowdModel())
     
 }

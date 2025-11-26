@@ -1,0 +1,40 @@
+//
+//  ListCard.swift
+//  LGTv2
+//
+//  Created by Joseph Scholtz on 11/21/25.
+//
+
+import SwiftUI
+import FirebaseFirestore
+
+struct ListCard: View {
+    
+    let event: Event
+    
+    var body: some View {
+        HStack{
+            Image(event.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 75.0, height: 75.0)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            VStack (alignment: .leading){
+                Text(event.name)
+                    .bold()
+                Text(event.location)
+                    .italic()
+                    .font(.subheadline)
+            }
+            Spacer()
+            Text(event.time)
+                .font(.subheadline)
+        }
+    }
+}
+
+#Preview {
+    ListCard(event: Event(id: "2", name: "Test", location: "Lake Geneva", locationDetails: "The Beach", latitude: 42.59157613156, longitude: 88.43599431381, description: "A test event for fun", link: "https://www.google.com/", time: "3pm-4pm", imageName: "LakeGeneva", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily"))
+        .padding()
+}

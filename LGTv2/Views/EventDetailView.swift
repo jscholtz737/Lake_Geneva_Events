@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EventDetailView: View {
     
-    @Environment(MapTabViewModel.self) var mapTabViewModel
+    let event: Event
     
     var body: some View {
         VStack{
@@ -32,22 +32,23 @@ struct EventDetailView: View {
             Divider()
                 .padding(5)
             
-            if let link = mapTabViewModel.selectedEvent?.link {
-                if link != "" {
+                if event.link != "" {
+                    let link = event.link
                     HStack {
                         Image(systemName: "link")
                             .padding([.leading, .trailing])
                             .foregroundColor(Color(.green))
                             .font(.system(size: 18))
-                        Link("More information", destination: URL(string: link)!)
+                        Link("More information", destination: URL(string: link) ?? URL(string: "https://www.google.com")!)
                             .font(.callout)
                         Spacer()
                     }
                 }
-            }
+            
         }
         Spacer()
     }
+     
 }
 
 // MARK: COMPONENTS
@@ -55,7 +56,7 @@ struct EventDetailView: View {
 extension EventDetailView {
     
     var eventPicture: some View {
-        Image(mapTabViewModel.selectedEvent?.imageName ?? "Generic")
+        Image(event.imageName)
             .resizable()
             .frame(height: 200)
             .aspectRatio(contentMode: .fit)
@@ -65,7 +66,7 @@ extension EventDetailView {
     }
     
     var eventName: some View {
-        Text(mapTabViewModel.selectedEvent?.name ?? "")
+        Text(event.name)
             .font(.largeTitle)
             .bold()
             .padding()
@@ -78,7 +79,7 @@ extension EventDetailView {
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
                 .font(.system(size: 18))
-            Text(mapTabViewModel.selectedEvent?.locationDetails ?? "")
+            Text(event.locationDetails)
                 .font(.callout)
             Spacer()
         }
@@ -91,7 +92,7 @@ extension EventDetailView {
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
                 .font(.system(size: 18))
-            Text(mapTabViewModel.selectedEvent?.time ?? "")
+            Text(event.time)
                 .font(.callout)
             Spacer()
         }
@@ -103,16 +104,16 @@ extension EventDetailView {
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
                 .font(.system(size: 18))
-            Text(mapTabViewModel.selectedEvent?.description ?? "")
+            Text(event.description)
                 .font(.callout)
             Spacer()
         }
     }
 }
 
-#Preview {
-    
-    EventDetailView()
-        .environment(MapTabViewModel())
-    
-}
+//#Preview {
+//    
+//    EventDetailView()
+//        .environment(MapTabViewModel())
+//    
+//}

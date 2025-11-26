@@ -9,8 +9,9 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 
-@Observable class DataService {
+@Observable final class DataService {
     
+    static let shared = DataService()
     var events: [Event] = []
     var date: Date { Date() }
     
@@ -70,6 +71,7 @@ import FirebaseFirestore
             var newEvent = event
             newEvent.startDate = Timestamp(date: nextDate)
             newEvent.endDate = Timestamp(date: nextDate)
+            newEvent.id = UUID().uuidString
             events.append(newEvent)
         }
     }
@@ -84,6 +86,7 @@ import FirebaseFirestore
             var newEvent = event
             newEvent.startDate = Timestamp(date: nextDate)
             newEvent.endDate = Timestamp(date: nextDate)
+            newEvent.id = UUID().uuidString
             events.append(newEvent)
         }
     }

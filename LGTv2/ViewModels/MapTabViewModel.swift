@@ -11,9 +11,8 @@ import FirebaseCore
 import FirebaseFirestore
 
 
-@Observable class MapTabViewModel {
+@Observable final class MapTabViewModel {
     
-    let dataService = DataService()
     var events: [Event] = []
     var filteredEvents: [Event] = []
     var selectedEvent: Event?
@@ -24,8 +23,8 @@ import FirebaseFirestore
     
     func getEvents() {
         Task {
-            await dataService.getFirebaseEvents()
-            events = dataService.events
+            await DataService.shared.getFirebaseEvents()
+            events = DataService.shared.events
         }
     }
     

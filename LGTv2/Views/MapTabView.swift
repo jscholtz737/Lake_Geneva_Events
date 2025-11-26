@@ -12,7 +12,7 @@ import MapKit
 struct MapTabView: View {
     
     
-    @Environment(MapTabViewModel.self) var mapTabViewModel
+    @State private var mapTabViewModel = MapTabViewModel()
     @Environment(CrowdModel.self) var crowdModel
     @State private var calendarId: Int = 0
     @State var calendarDisplayed = false
@@ -23,36 +23,45 @@ struct MapTabView: View {
     
     var body: some View {
         
-        @Bindable var mapTabViewModel = mapTabViewModel
-        
-        NavigationStack{
             ZStack {
                 mapWithEvents
+                
+                
+                VStack {
+                    HStack {
+                        WxView()
+                        Spacer()
+                        dateSelector
+                        Spacer()
+                        CrowdView()
+                    }
+                    .offset(y: -12)
+                    .padding([.leading, .trailing])
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(stops: [
+                                .init(color: .warmBlue.opacity(0.9), location: 0.0),
+                                .init(color: .warmBlue.opacity(0.7), location: 0.6),
+                                .init(color: .warmBlue.opacity(0.35), location: 0.8),
+                                .init(color: .warmBlue.opacity(0.0), location: 1.0)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    Spacer()
+                }
             }
             .onAppear() {
                 mapTabViewModel.filterForSelectedDate(date: date)
             }
-            .toolbar {
-                ToolbarItem(placement:.topBarLeading) {
-                    WxView()
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    dateSelector
-                        .border(.orange, width: 2) //border for testing
-                }
-                
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    CrowdView()
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
             .onChange(of: selectedEventId) { oldValue, newValue in
                 setSelectedEvent()
             }
             .sheet(item: $mapTabViewModel.selectedEvent) { item in
-                EventDetailView()
+                EventDetailView(event: item)
+                    .presentationDetents([.medium, .large]) 
             }
             .onChange(of: date) {
                 mapTabViewModel.filterForSelectedDate(date: date)
@@ -61,7 +70,6 @@ struct MapTabView: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 date = Date()
             }
-        }
     }
 }
 
@@ -79,29 +87,44 @@ extension MapTabView {
     }
     
     var dateSelector: some View {
-        VStack {
-            HStack {
-                Text(date, format: .dateTime.month().day())
+        HStack {
+            VStack {
+                Text(date, format: .dateTime.weekday(.wide))
                     .font(.title2)
-                    .overlay{
-                        DatePicker(
-                            "Select Date",
-                            selection: $date,
-                            in: Date()...,
-                            displayedComponents: [.date]
-                        )
-                        .blendMode(.destinationOver)
-                        .labelsHidden()
-                        .id(calendarId)
-                        .onChange(of: date) {
-                            calendarId += 1
-                        }
-                    }
-                Image(systemName: "arrowtriangle.down.fill")
-                    .font(.caption)
-                    .rotationEffect(calendarDisplayed ? .degrees(-180) : .degrees(0))
+                    .fontWeight(.bold)
+                
+                Text(date, format: .dateTime.month().day())
             }
-            Text(date, format: .dateTime.weekday(.wide))
+           
+            Image(systemName: "chevron.down")
+                .font(.subheadline)
+                .fontWeight(.heavy)
+                .rotationEffect(calendarDisplayed ? .degrees(-180) : .degrees(0))
+                .animation(.easeInOut, value: calendarDisplayed)
+        }
+        .foregroundStyle(Color.white)
+        .padding([.leading, .trailing])
+        .padding(.bottom,2)
+        .onTapGesture {
+            calendarDisplayed.toggle()
+        }
+        .sheet(isPresented: $calendarDisplayed) {
+            DatePicker(
+                "Select Date",
+                selection: $date,
+                in: Calendar.current.startOfDay(for: Date())...,
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            .labelsHidden()
+            .id(calendarId)
+            .onChange(of: date) {
+                calendarId += 1
+                calendarDisplayed = false
+            }
+            .presentationDetents([.medium, .large]) // enables half-screen and full-screen
+            .presentationDragIndicator(.visible)
+            .padding()
         }
     }
     

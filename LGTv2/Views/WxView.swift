@@ -16,9 +16,9 @@ struct WxView: View {
     
     var body: some View {
         
-            HStack {
+           // HStack {
                 currentWeather
-                }
+             //   }
                 .task {
                     currentWx = await dataService.getWeather()
                    if let code = currentWx.condition.code {
@@ -46,28 +46,33 @@ struct WxView: View {
 extension WxView {
     
     var currentWeather: some View {
-        VStack (spacing: -10) {
+        HStack (alignment: .bottom, spacing: -10) {
+            
+            if currentWx.temp_f == nil {
+                let stringTemp = "--"
+                Text(stringTemp + "°")
+                    .padding(.trailing)
+            } else {
+                let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
+                Text(stringTemp + "°")
+                    .padding(.trailing)
+            }
             
             if skyIcon == "" {
                 Image(systemName: "network.slash")
                     .font(.system(size: 24))
                     .scaledToFit()
                     .frame(width: 48, height: 49)
+                    .padding()
+                    .offset(y: 12)
+                
             } else {
                 Image(skyIcon)
-            }
-            
-            if currentWx.temp_f == nil {
-                let stringTemp = "--"
-                Text(stringTemp + "°")
-                    .padding(.trailing)
-                    .font(.subheadline)
-            } else {
-                let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
-                Text(stringTemp + "°")
-                    .font(.subheadline)
+                    .offset(y: 12)
             }
         }
+        .font(.title3)
+        .foregroundStyle(Color.white)
     }
 }
 
