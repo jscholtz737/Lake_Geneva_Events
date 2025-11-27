@@ -16,9 +16,12 @@ import FirebaseFirestore
     var events: [Event] = []
     var filteredEvents: [Event] = []
     var selectedEvent: Event?
+    //var crowds: [Crowds] = []
+    //var date = Date()
     
     init() {
         self.getEvents()
+        self.getCrowds(date: Date())
     }
     
     func getEvents() {
@@ -35,6 +38,11 @@ import FirebaseFirestore
         }
     }
 
+    func getCrowds(date:Date) {
+
+        DataService.shared.getFirebaseCrowdData(date: date)
+            
+    }
 
 }
 

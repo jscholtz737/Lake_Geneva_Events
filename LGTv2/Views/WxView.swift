@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WxView: View {
     
-    @Environment(CrowdModel.self) var crowdModel
+    //@Environment(CrowdViewViewModel.self) var crowdModel
     @State var currentWx = Current()
     @State var dataService:DataService = DataService()
     @State var skyIcon = ""
@@ -80,6 +80,6 @@ extension WxView {
     
     WxView()
         .environment(MapTabViewModel())
-        .environment(CrowdModel())
+        //.environment(CrowdViewViewModel())
     
 }

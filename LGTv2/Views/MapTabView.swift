@@ -13,7 +13,7 @@ struct MapTabView: View {
     
     
     @State private var mapTabViewModel = MapTabViewModel()
-    @Environment(CrowdModel.self) var crowdModel
+    //@Environment(CrowdViewViewModel.self) var crowdModel
     @State private var calendarId: Int = 0
     @State var calendarDisplayed = false
     @State var date = Date()
@@ -65,7 +65,7 @@ struct MapTabView: View {
             }
             .onChange(of: date) {
                 mapTabViewModel.filterForSelectedDate(date: date)
-                crowdModel.getCrowds(date: date)
+                mapTabViewModel.getCrowds(date: date)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 date = Date()
@@ -150,6 +150,6 @@ extension MapTabView {
     
     MapTabView()
         .environment(MapTabViewModel())
-        .environment(CrowdModel())
+        //.environment(CrowdViewViewModel())
     
 }

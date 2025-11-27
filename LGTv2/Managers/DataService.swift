@@ -13,7 +13,8 @@ import FirebaseFirestore
     
     static let shared = DataService()
     var events: [Event] = []
-    var date: Date { Date() }
+    var date = Date() 
+    var crowds: [Crowds] = []
     
     func getFirebaseEvents() async {
         let db = Firestore.firestore()
@@ -116,8 +117,6 @@ import FirebaseFirestore
         }
         return Current()
     }
-    
-    
     
     static func getIcon(code:Int, day:Int) -> String {
         
@@ -328,6 +327,39 @@ import FirebaseFirestore
         }
         else {
             return("")
+        }
+    }
+    
+    func getFirebaseCrowdData(date:Date) {
+        
+        let dtFormatter = DateFormatter()
+        dtFormatter.dateStyle = .short
+
+        let formattedDate = dtFormatter.string(from: date)
+        
+        let db = Firestore.firestore()
+        
+        let crowds = db.collection("crowdsv2")
+        let query = crowds.whereField("date", isEqualTo:formattedDate)
+        query.getDocuments { QuerySnapshot, error in
+            
+            if error == nil {
+                //no errors
+                if let snapshot = QuerySnapshot {
+                    //update the list properties in the main thread
+                    DispatchQueue.main.async {
+                        //get the documents and create Crowds
+                        self.crowds = snapshot.documents.map { d in
+                            
+                            //create a Crowds item for each document returned
+                            return Crowds(id: d.documentID, date: d["date"] as? String ?? "x", level: d["level"] as? String ?? "x")
+                        }
+                    }
+                }
+            }
+            else {
+                print(error?.localizedDescription ?? "db error")
+            }
         }
     }
 }

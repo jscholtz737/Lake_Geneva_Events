@@ -74,5 +74,5 @@ extension ListTabView {
 #Preview {
     
     ListTabView()
-        .environment(MapTabViewModel()) //MapTabViewModel runs the getFireBaseEvents function
+        .environment(MapTabViewModel()) 
 }
