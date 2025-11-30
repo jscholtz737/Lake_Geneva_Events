@@ -28,30 +28,8 @@ struct MapTabView: View {
             ZStack {
                 mapWithEvents
                 
-                
                 VStack {
-                    HStack {
-                        WxView()
-                        Spacer()
-                        dateSelector
-                        Spacer()
-                        CrowdView()
-                    }
-                    .offset(y: -12)
-                    .padding([.leading, .trailing])
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(stops: [
-                                .init(color: .warmBlue.opacity(0.9), location: 0.0),
-                                .init(color: .warmBlue.opacity(0.7), location: 0.6),
-                                .init(color: .warmBlue.opacity(0.35), location: 0.8),
-                                .init(color: .warmBlue.opacity(0.0), location: 1.0)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    header
                     Spacer()
                 }
             }
@@ -87,6 +65,31 @@ extension MapTabView {
                 }
             }
             }
+    }
+    
+    var header: some View {
+        HStack {
+            WxView()
+            Spacer()
+            dateSelector
+            Spacer()
+            CrowdView()
+        }
+        .offset(y: -12)
+        .padding([.leading, .trailing])
+        .frame(maxWidth: .infinity)
+        .background(
+            LinearGradient(
+                gradient: Gradient(stops: [
+                    .init(color: .warmBlue.opacity(0.9), location: 0.0),
+                    .init(color: .warmBlue.opacity(0.7), location: 0.6),
+                    .init(color: .warmBlue.opacity(0.35), location: 0.8),
+                    .init(color: .warmBlue.opacity(0.0), location: 1.0)
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
     }
     
     var dateSelector: some View {

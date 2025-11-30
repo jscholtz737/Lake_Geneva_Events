@@ -57,7 +57,7 @@ extension ListTabView {
 
         return List {
             ForEach(sortedDays, id: \.self) { day in
-                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day()))) {
+                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())).foregroundStyle(Color.black).italic().font(.title).fontWeight(.bold)) {
                     // Optionally sort events within a day by start time
                     let events = (groupedByDay[day] ?? []).sorted { lhs, rhs in
                         lhs.startDate.dateValue() < rhs.startDate.dateValue()

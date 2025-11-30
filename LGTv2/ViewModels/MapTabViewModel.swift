@@ -22,6 +22,9 @@ import FirebaseFirestore
         Task {
             await DataService.shared.getFirebaseEvents()
             events = await DataService.shared.events
+            await MainActor.run {
+                filterForSelectedDate(date: Date())
+            }
         }
     }
     
