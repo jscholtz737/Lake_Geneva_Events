@@ -9,9 +9,8 @@ import SwiftUI
 
 struct WxView: View {
     
-    //@Environment(CrowdViewViewModel.self) var crowdModel
+    @Environment(MapTabViewModel.self) var mapTabViewModel
     @State var currentWx = Current()
-    @State var dataService:DataService = DataService()
     @State var skyIcon = ""
     
     var body: some View {
@@ -20,20 +19,20 @@ struct WxView: View {
                 currentWeather
              //   }
                 .task {
-                    currentWx = await dataService.getWeather()
+                    currentWx = await DataService.shared.getWeather()
                    if let code = currentWx.condition.code {
                         if let day = currentWx.is_day {
-                            skyIcon = DataService.getIcon(code: code, day: day)
+                            skyIcon = mapTabViewModel.getWeatherIcon(code: code, day: day)
                         }
                     }
                 }
                 .padding(.bottom)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         Task {
-                            currentWx = await dataService.getWeather()
+                            currentWx = await DataService.shared.getWeather()
                             if let code = currentWx.condition.code {
                                 if let day = currentWx.is_day {
-                                    skyIcon = DataService.getIcon(code: code, day: day)
+                                    skyIcon = mapTabViewModel.getWeatherIcon(code: code, day: day)
                                 }
                             }
                         }
@@ -80,6 +79,6 @@ extension WxView {
     
     WxView()
         .environment(MapTabViewModel())
-        //.environment(CrowdViewViewModel())
+   
     
 }

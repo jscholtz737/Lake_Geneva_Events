@@ -12,7 +12,6 @@ import SwiftUI
 struct CrowdView: View {
     
     @Environment(MapTabViewModel.self) var mapTabViewModel
-    @State var dataService:DataService = DataService()
     @State var skyIcon = ""
     
     var body: some View {
@@ -25,14 +24,14 @@ extension CrowdView {
     var expectedCrowds: some View {
         VStack (spacing: 0) {
             
-            if DataService.shared.crowds.isEmpty {
+            if mapTabViewModel.crowds.isEmpty {
                 Image(systemName: "person.fill.questionmark")
                     .font(.system(size: 36))
                     .scaledToFit()
                     .frame(width: 48, height: 49)
                     .padding(.trailing)
             } else {
-                ForEach(DataService.shared.crowds) {crowd in
+                ForEach(mapTabViewModel.crowds) {crowd in
                     switch crowd.level {
                     case "Low":
                         Image(systemName: "person.fill")
@@ -71,5 +70,4 @@ extension CrowdView {
 #Preview {
     CrowdView()
         .environment(MapTabViewModel())
-        //.environment(CrowdViewViewModel())
 }

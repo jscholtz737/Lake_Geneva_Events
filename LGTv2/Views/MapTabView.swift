@@ -8,17 +8,19 @@
 import SwiftUI
 import Foundation
 import MapKit
+import FirebaseFirestore
 
 struct MapTabView: View {
     
     
-    @State private var mapTabViewModel = MapTabViewModel()
-    //@Environment(CrowdViewViewModel.self) var crowdModel
+    @Environment(MapTabViewModel.self) var mapTabViewModel
     @State private var calendarId: Int = 0
     @State var calendarDisplayed = false
     @State var date = Date()
     @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     @State var selectedEventId: String?
+    @State var showSheet = false
+    var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
     
     
     var body: some View {
@@ -54,14 +56,15 @@ struct MapTabView: View {
                 }
             }
             .onAppear() {
-                mapTabViewModel.filterForSelectedDate(date: date)
+                mapTabViewModel.getEvents()
+                mapTabViewModel.getCrowds(date: date)
             }
             .onChange(of: selectedEventId) { oldValue, newValue in
                 setSelectedEvent()
             }
-            .sheet(item: $mapTabViewModel.selectedEvent) { item in
-                EventDetailView(event: item)
-                    .presentationDetents([.medium, .large]) 
+            .sheet(isPresented: $showSheet) {
+                EventDetailView(event: mapTabViewModel.selectedEvent ?? blankEvent)
+                    .presentationDetents([.medium, .large])
             }
             .onChange(of: date) {
                 mapTabViewModel.filterForSelectedDate(date: date)
@@ -142,6 +145,7 @@ extension MapTabView {
         }
         if event != nil {
             mapTabViewModel.selectedEvent = event
+            showSheet.toggle()
         }
     }
 }
@@ -150,6 +154,5 @@ extension MapTabView {
     
     MapTabView()
         .environment(MapTabViewModel())
-        //.environment(CrowdViewViewModel())
     
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct EventDetailView: View {
     
@@ -111,9 +112,7 @@ extension EventDetailView {
     }
 }
 
-//#Preview {
-//    
-//    EventDetailView()
-//        .environment(MapTabViewModel())
-//    
-//}
+#Preview {
+    ListCard(event: Event(id: "2", name: "Test", location: "Lake Geneva", locationDetails: "The Beach", latitude: 42.59157613156, longitude: 88.43599431381, description: "A test event for fun", link: "https://www.google.com/", time: "3pm-4pm", imageName: "LakeGeneva", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily"))
+        .padding()
+}

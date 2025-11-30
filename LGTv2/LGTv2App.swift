@@ -21,12 +21,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct LGTv2App: App {
     // register app delegate for Firebase setup
       @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
+    @State private var mapTabViewModel = MapTabViewModel()
+    @State private var listTabViewModel = ListTabViewModel()
     
       var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(MapTabViewModel())
-                .environment(ListTabViewModel())
+                .environment(mapTabViewModel)
+                .environment(listTabViewModel)
         }
       }
     }

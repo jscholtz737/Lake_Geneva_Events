@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ListTabView: View {
     
     var date = Date()
-    @State private var listTabViewModel:ListTabViewModel = ListTabViewModel()
-    @State var dateGroup: Date?
+    @State var showSheet = false
+    var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
+    @Environment(ListTabViewModel.self) var listTabViewModel
     
     var body: some View {
+        
             VStack {
                 if listTabViewModel.eventsByDate.count == 0 {
                     noEventsScheduled
@@ -22,9 +25,12 @@ struct ListTabView: View {
                     eventList
                 }
             }
-            .sheet(item: $listTabViewModel.selectedEvent) { item in
-                EventDetailView(event: item)
-                    .presentationDetents([.medium, .large]) 
+            .onAppear() {
+                listTabViewModel.sortEventsByDate()
+            }
+            .sheet(isPresented: $showSheet) {
+                EventDetailView(event: listTabViewModel.selectedEvent ?? blankEvent)
+                    .presentationDetents([.medium, .large])
             }
     }
 }
@@ -61,6 +67,7 @@ extension ListTabView {
                         .alignmentGuide(.listRowSeparatorLeading) { d in d[.leading] }
                         .onTapGesture {
                             listTabViewModel.selectedEvent = event
+                            showSheet.toggle()
                         }
                     }
                 }
@@ -74,5 +81,5 @@ extension ListTabView {
 #Preview {
     
     ListTabView()
-        .environment(MapTabViewModel()) 
+        .environment(ListTabViewModel())
 }
