@@ -17,8 +17,11 @@ import FirebaseFirestore
     var eventsByDate: [Event] = []
     
     func sortEventsByDate() {
-        Task{
-            eventsByDate = await DataService.shared.events.sorted(by: { $0.startDate.dateValue() < $1.startDate.dateValue() })
+        Task {
+            let now = Date()
+            eventsByDate = await DataService.shared.events
+                .filter { $0.startDate.dateValue() >= now }
+                .sorted { $0.startDate.dateValue() < $1.startDate.dateValue() }
         }
     }
 }
