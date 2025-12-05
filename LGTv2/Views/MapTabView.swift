@@ -20,6 +20,7 @@ struct MapTabView: View {
     @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
     @State var selectedEventId: String?
     @State var showSheet = false
+    @State private var dropped = false
     var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
     
     
@@ -61,10 +62,15 @@ extension MapTabView {
         Map(position: $position, selection: $selectedEventId) {
             ForEach(mapTabViewModel.filteredEvents) { event in
                 Annotation(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)) {
-                    Image(systemName: "mappin.and.ellipse")
+                    Image(systemName: "mappin")
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(.purple)
+                        .symbolEffect(.bounce, value: UUID())
+
                 }
             }
-            }
+        }
     }
     
     var header: some View {
@@ -152,6 +158,8 @@ extension MapTabView {
         }
     }
 }
+
+
 
 #Preview {
     
