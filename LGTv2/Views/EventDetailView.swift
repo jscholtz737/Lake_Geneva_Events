@@ -13,65 +13,69 @@ struct EventDetailView: View {
     let event: Event
     
     var body: some View {
-        VStack{
-            eventPicture
-            eventName
-        }
-        VStack {
-            eventLocation
+        
+    
+        ZStack {
+         
+            VStack(spacing: 12) {
+                eventName
             
-            Divider()
-                .padding(5)
-            
-            eventTime
-            
-            Divider()
-                .padding(5)
-            
-            eventDescription
-            
-            Divider()
-                .padding(5)
-            
+                eventLocation
+                Divider().padding(.vertical, 5)
+                
+                eventTime
+                Divider().padding(.vertical, 5)
+                
+                eventDescription
+                Divider().padding(.vertical, 5)
+                
                 if event.link != "" {
                     let link = event.link
                     HStack {
                         Image(systemName: "link")
                             .padding([.leading, .trailing])
                             .foregroundColor(Color(.green))
-                            .font(.system(size: 18))
+                            .font(.title3)
                         Link("More information", destination: URL(string: link) ?? URL(string: "https://www.google.com")!)
                             .font(.callout)
                         Spacer()
                     }
                 }
-            
+                Spacer()
+            }
+            .padding(.top, 50)
         }
-        Spacer()
+                .background(
+                    backgroundPicture
+                )
     }
-     
 }
 
 // MARK: COMPONENTS
 
 extension EventDetailView {
     
-    var eventPicture: some View {
+    var backgroundPicture: some View {
         Image(event.imageName)
             .resizable()
-            .frame(height: 200)
-            .aspectRatio(contentMode: .fit)
-            .clipped()
+            .aspectRatio(contentMode: .fill)
             .ignoresSafeArea()
-            .opacity(0.3)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .clipped()
+            .overlay(Color.sheet.opacity(0.8))
+            .blur(radius: 1)
     }
     
     var eventName: some View {
         Text(event.name)
             .font(.largeTitle)
             .bold()
-            .padding()
             .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .minimumScaleFactor(0.7)
+            .allowsTightening(true)
+            //.padding(.top, 20)
+            .padding([.leading, .trailing])
     }
     
     var eventLocation: some View {
@@ -79,12 +83,12 @@ extension EventDetailView {
             Image(systemName: "location")
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
-                .font(.system(size: 18))
+                .font(.title3)
             Text(event.locationDetails)
                 .font(.callout)
             Spacer()
         }
-        .padding(.top)
+        .padding(.top, 50)
     }
     
     var eventTime: some View {
@@ -92,7 +96,7 @@ extension EventDetailView {
             Image(systemName: "clock")
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
-                .font(.system(size: 18))
+                .font(.title3)
             Text(event.time)
                 .font(.callout)
             Spacer()
@@ -104,7 +108,7 @@ extension EventDetailView {
             Image(systemName: "book")
                 .padding([.leading, .trailing])
                 .foregroundColor(Color(.green))
-                .font(.system(size: 18))
+                .font(.title3)
             Text(event.description)
                 .font(.callout)
             Spacer()
@@ -113,6 +117,6 @@ extension EventDetailView {
 }
 
 #Preview {
-    EventDetailView(event: Event(id: "2", name: "Test", location: "Lake Geneva", locationDetails: "The Beach", latitude: 42.59157613156, longitude: 88.43599431381, description: "A test event for fun", link: "https://www.google.com/", time: "3pm-4pm", imageName: "LakeGeneva", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily"))
+    EventDetailView(event: Event(id: "2", name: "Gingerbread House Walkway Parade Route", location: "Lake Geneva", locationDetails: "The Beach", latitude: 42.59157613156, longitude: 88.43599431381, description: "A test event for fun", link: "https://www.google.com/", time: "3pm-4pm", imageName: "LakeGeneva", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily"))
         .padding()
 }

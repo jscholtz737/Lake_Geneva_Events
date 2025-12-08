@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 struct ListTabView: View {
     
-    var date = Date()
+    //var date = Date()
     @State var showSheet = false
     var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
     @Environment(ListTabViewModel.self) var listTabViewModel
@@ -57,19 +57,24 @@ extension ListTabView {
 
         return List {
             ForEach(sortedDays, id: \.self) { day in
-                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())).foregroundStyle(Color.primary).italic().font(.title).fontWeight(.bold)) {
-                    // Optionally sort events within a day by start time
+                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())).foregroundStyle(Color.primary).italic().font(.title2).fontWeight(.bold)) {
+                    // sort events within a day by start time
                     let events = (groupedByDay[day] ?? []).sorted { lhs, rhs in
                         lhs.startDate.dateValue() < rhs.startDate.dateValue()
                     }
                     ForEach(events) { event in
                         ListCard(event: event)
-                        .alignmentGuide(.listRowSeparatorLeading) { d in d[.leading] }
-                        .alignmentGuide(.listRowSeparatorTrailing) { d in d[.trailing] }
-                        .onTapGesture {
-                            listTabViewModel.selectedEvent = event
-                            showSheet.toggle()
-                        }
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                            .background(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .fill(Color(.systemGray6))
+                            )
+                            .listRowBackground(Color.clear)
+                            .onTapGesture {
+                                listTabViewModel.selectedEvent = event
+                                showSheet.toggle()
+                            }
                     }
                 }
             }

@@ -22,14 +22,13 @@ struct ContentView: View {
                 Tab("All", systemImage: "calendar", value: 1) {
                     ListTabView()
                 }
-                Tab("Send", systemImage: "mail", value: 2) {
-                    Text("Send event")
+                Tab("Search", systemImage: "magnifyingglass", value: 2) {
+                    Text("Search Events")
                 }
             }
     }
 }
   
-
 #Preview {
     
     ContentView()

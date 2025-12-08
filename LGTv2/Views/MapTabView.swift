@@ -18,36 +18,58 @@ struct MapTabView: View {
     @State var calendarDisplayed = false
     @State var date = Date()
     @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
-    @State var selectedEventId: String?
-    @State var showSheet = false
-    @State private var dropped = false
-    var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
     
+    //believe these are old vars not needed anymore...
+    //@State var selectedEventId: String?
+    //@State var showSheet = false
+    //@State private var dropped = false
+    //var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
+    
+    //id on the card tab view to increase scale effect on corresponding map pin annotation
+    @State private var selectedCardEventId: String? = nil
     
     var body: some View {
         
             ZStack {
-                mapWithEvents
+                Group {
+                    if selectedCardEventId != nil || mapTabViewModel.filteredEvents.isEmpty {
+                        mapWithEvents
+                    }
+                }
                 
                 VStack {
                     header
                     Spacer()
+                    
+                    TabView(selection: $selectedCardEventId) {
+                        ForEach(mapTabViewModel.filteredEvents) { event in
+                            
+                            MapCard(cardEvent: event)
+                                .padding(.horizontal, 16)
+                                .shadow(color: Color.black.opacity(0.3), radius: 20)
+                                .tag(Optional(event.id))
+                        }
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .automatic))
+                    .frame(maxHeight: 220)
                 }
             }
             .onAppear() {
                 mapTabViewModel.getEvents()
                 mapTabViewModel.getCrowds(date: date)
             }
-            .onChange(of: selectedEventId) { oldValue, newValue in
-                setSelectedEvent()
-            }
-            .sheet(isPresented: $showSheet) {
-                EventDetailView(event: mapTabViewModel.selectedEvent ?? blankEvent)
-                    .presentationDetents([.medium, .large])
-            }
+
             .onChange(of: date) {
                 mapTabViewModel.filterForSelectedDate(date: date)
                 mapTabViewModel.getCrowds(date: date)
+            }
+            .onChange(of: mapTabViewModel.filteredEvents) {
+                if selectedCardEventId == nil, let first = mapTabViewModel.filteredEvents.first {
+                    selectedCardEventId = first.id
+                } else if let current = selectedCardEventId, !mapTabViewModel.filteredEvents.contains(where: { $0.id == current }) {
+                    // Current selection no longer exists; reset to first if available
+                    selectedCardEventId = mapTabViewModel.filteredEvents.first?.id
+                }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 date = Date()
@@ -59,15 +81,16 @@ struct MapTabView: View {
 extension MapTabView {
     
     var mapWithEvents: some View {
-        Map(position: $position, selection: $selectedEventId) {
+        Map(position: $position) {
             ForEach(mapTabViewModel.filteredEvents) { event in
-                Annotation(event.name, coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)) {
+                Annotation("", coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)) {
                     Image(systemName: "mappin")
                         .font(.title)
                         .bold()
                         .foregroundStyle(.purple)
-                        .symbolEffect(.bounce, value: UUID())
-
+                        .scaleEffect(selectedCardEventId == event.id ? 1.6 : 1.0)
+                        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: selectedCardEventId)
+                        .symbolEffect(.bounce, value: selectedCardEventId == event.id)
                 }
             }
         }
@@ -148,17 +171,7 @@ extension MapTabView {
             })
     }
     
-    func setSelectedEvent() {
-        let event = mapTabViewModel.events.first { event in
-            event.id == selectedEventId
-        }
-        if event != nil {
-            mapTabViewModel.selectedEvent = event
-            showSheet.toggle()
-        }
-    }
 }
-
 
 
 #Preview {
@@ -167,3 +180,4 @@ extension MapTabView {
         .environment(MapTabViewModel())
     
 }
+
