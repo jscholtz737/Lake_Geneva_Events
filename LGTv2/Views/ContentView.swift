@@ -34,5 +34,6 @@ struct ContentView: View {
     ContentView()
         .environment(MapTabViewModel())
         .environment(ListTabViewModel())
+        .environment(SearchTabViewModel())
 }
 

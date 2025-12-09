@@ -25,12 +25,14 @@ struct LGTv2App: App {
 
     @State private var mapTabViewModel = MapTabViewModel()
     @State private var listTabViewModel = ListTabViewModel()
+    @State private var searchTabViewModel = SearchTabViewModel()
     
       var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(mapTabViewModel)
                 .environment(listTabViewModel)
+                .environment(searchTabViewModel)
         }
       }
     }

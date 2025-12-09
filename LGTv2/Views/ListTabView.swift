@@ -10,9 +10,8 @@ import FirebaseFirestore
 
 struct ListTabView: View {
     
-    //var date = Date()
     @State var showSheet = false
-    var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
+    var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "")
     @Environment(ListTabViewModel.self) var listTabViewModel
     
     var body: some View {
