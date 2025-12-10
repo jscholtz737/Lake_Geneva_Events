@@ -6,19 +6,18 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
+
 
 struct ListTabView: View {
     
     @State var showSheet = false
-    var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "")
     @Environment(ListTabViewModel.self) var listTabViewModel
     
     var body: some View {
         
             VStack {
                 if listTabViewModel.eventsByDate.count == 0 {
-                    noEventsScheduled
+                    noEventsFound
                 }
                 else {
                     eventList
@@ -28,8 +27,10 @@ struct ListTabView: View {
                 listTabViewModel.sortEventsByDate()
             }
             .sheet(isPresented: $showSheet) {
-                EventDetailView(event: listTabViewModel.selectedEvent ?? blankEvent)
-                    .presentationDetents([.medium, .large])
+                if let sheetEvent = listTabViewModel.selectedEvent {
+                    EventDetailView(event: sheetEvent)
+                        .presentationDetents([.medium, .large])
+                }
             }
     }
 }
@@ -38,11 +39,11 @@ struct ListTabView: View {
 // MARK: COMPONENTS
 extension ListTabView {
     
-    var noEventsScheduled: some View {
+    var noEventsFound: some View {
         VStack {
             Text("")
             Text("")
-            Text("No events scheduled")
+            Text("No events found")
             Spacer()
         }
     }
@@ -65,11 +66,6 @@ extension ListTabView {
                         ListCard(event: event)
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                            .background(
-                                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                    .fill(Color(.systemGray6))
-                            )
-                            .listRowBackground(Color.clear)
                             .onTapGesture {
                                 listTabViewModel.selectedEvent = event
                                 showSheet.toggle()

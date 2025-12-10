@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1A0CBFB92C8F734B000A92BF /* Crowds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CBFB82C8F734B000A92BF /* Crowds.swift */; };
+		1A11002C2EE9CF5600DB1DED /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */; };
+		1A11002E2EE9D03A00DB1DED /* SecretsDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A11002D2EE9D02D00DB1DED /* SecretsDecoder.swift */; };
 		1A421EE62E5F85B50047EF16 /* CrowdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A421EE52E5F85B50047EF16 /* CrowdView.swift */; };
 		1A5121152EE263A100CA4B7E /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5121142EE263A100CA4B7E /* MapPin.swift */; };
 		1A5121172EE27DA600CA4B7E /* MapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5121162EE27DA600CA4B7E /* MapCard.swift */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		1A0CBFB72C8F49CC000A92BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1A0CBFB82C8F734B000A92BF /* Crowds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crowds.swift; sourceTree = "<group>"; };
+		1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		1A11002D2EE9D02D00DB1DED /* SecretsDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsDecoder.swift; sourceTree = "<group>"; };
 		1A421EE52E5F85B50047EF16 /* CrowdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdView.swift; sourceTree = "<group>"; };
 		1A5121142EE263A100CA4B7E /* MapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		1A5121162EE27DA600CA4B7E /* MapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCard.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 				1A9112952C275B0A001A43CA /* ContentView.swift */,
 				1A70B3812E0C7E8E00ECB941 /* MapTabView.swift */,
 				1AD897FC2C495EF300CF23A6 /* ListTabView.swift */,
+				1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */,
+				1A11002D2EE9D02D00DB1DED /* SecretsDecoder.swift */,
 				1A5121182EE66BD000CA4B7E /* SearchTabView.swift */,
 				1A5D81162ED0D8D300E6142B /* ListCard.swift */,
 				1A421EE52E5F85B50047EF16 /* CrowdView.swift */,
@@ -227,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A11002C2EE9CF5600DB1DED /* Secrets.xcconfig in Resources */,
 				1A91129B2C275B0D001A43CA /* Preview Assets.xcassets in Resources */,
 				1A9112982C275B0D001A43CA /* Assets.xcassets in Resources */,
 				1AC1B8802CD031E400D51628 /* GoogleService-Info.plist in Resources */,
@@ -247,6 +254,7 @@
 				1A70B3822E0C7E8E00ECB941 /* MapTabView.swift in Sources */,
 				1A5121172EE27DA600CA4B7E /* MapCard.swift in Sources */,
 				1AD897FF2C49674100CF23A6 /* WxView.swift in Sources */,
+				1A11002E2EE9D03A00DB1DED /* SecretsDecoder.swift in Sources */,
 				1AB4C6262C2F6B750094D982 /* MapTabViewModel.swift in Sources */,
 				1AD897FD2C495EF300CF23A6 /* ListTabView.swift in Sources */,
 				1A5D81152ECE369800E6142B /* ListTabViewModel.swift in Sources */,

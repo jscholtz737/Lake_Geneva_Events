@@ -26,10 +26,11 @@ extension CrowdView {
             
             if mapTabViewModel.crowds.isEmpty {
                 Image(systemName: "person.fill.questionmark")
-                    .font(.system(size: 36))
+                    .font(.system(size: 32))
                     .scaledToFit()
                     .frame(width: 48, height: 49)
                     .padding(.trailing)
+                    .offset(y: -8)
             } else {
                 ForEach(mapTabViewModel.crowds) {crowd in
                     switch crowd.level {
@@ -40,6 +41,7 @@ extension CrowdView {
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
+                            .offset(y: -8)
                     case "Moderate":
                         Image(systemName: "person.2.fill")
                             .foregroundColor(.orange)
@@ -47,6 +49,7 @@ extension CrowdView {
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
+                            .offset(y: -8)
                     case "Heavy":
                         Image(systemName: "person.3.fill")
                             .foregroundColor(.red)
@@ -54,12 +57,14 @@ extension CrowdView {
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
+                            .offset(y: -8)
                     default:
                         Image(systemName: "person.fill.xmark")
                             .font(.system(size: 32))
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
+                            .offset(y: -10)
                     }
                 }
             }

@@ -17,15 +17,7 @@ struct MapTabView: View {
     @State private var calendarId: Int = 0
     @State var calendarDisplayed = false
     @State var date = Date()
-    @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)))
-    
-    //believe these are old vars not needed anymore...
-    //@State var selectedEventId: String?
-    //@State var showSheet = false
-    //@State private var dropped = false
-    //var blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "daily")
-    
-    //id on the card tab view to increase scale effect on corresponding map pin annotation
+    @State private var position = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 42.567, longitude: -88.50189), span: MKCoordinateSpan(latitudeDelta: 0.21, longitudeDelta: 0.21)))
     @State private var selectedCardEventId: String? = nil
     
     var body: some View {

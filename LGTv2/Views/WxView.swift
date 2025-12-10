@@ -15,9 +15,9 @@ struct WxView: View {
     
     var body: some View {
         
-           // HStack {
+            HStack {
                 currentWeather
-             //   }
+                }
                 .task {
                     currentWx = await DataService.shared.getWeather()
                    if let code = currentWx.condition.code {
@@ -51,10 +51,12 @@ extension WxView {
                 let stringTemp = "--"
                 Text(stringTemp + "°")
                     .padding(.trailing)
+                    .offset(y: -12)
             } else {
                 let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
                 Text(stringTemp + "°")
                     .padding(.trailing)
+                    .offset(y: -12)
             }
             
             if skyIcon == "" {
@@ -63,11 +65,11 @@ extension WxView {
                     .scaledToFit()
                     .frame(width: 48, height: 49)
                     .padding()
-                    .offset(y: 12)
+                    .offset(y: 5)
                 
             } else {
                 Image(skyIcon)
-                    .offset(y: 12)
+                    .offset(y: 5)
             }
         }
         .font(.title3)

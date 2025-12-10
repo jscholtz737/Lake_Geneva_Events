@@ -19,7 +19,7 @@ final actor DataService {
 //    called from maptabviewmodel, on appear map view. gets all events from firebase and assigns them to DataService.events.  Then calls addRecurringEvents
     func getFirebaseEvents() async {
         let db = Firestore.firestore()
-        let eventsCollection = db.collection("eventsV2")
+        let eventsCollection = db.collection("events")
         let query = eventsCollection.whereField("endDate", isGreaterThan: date)
         do {
             let snapshot = try await query.getDocuments()
@@ -128,10 +128,10 @@ final actor DataService {
         dtFormatter.dateStyle = .short
 
         let formattedDate = dtFormatter.string(from: date)
-        
+     
         let db = Firestore.firestore()
         
-        let crowdsCollection = db.collection("crowdsv2")
+        let crowdsCollection = db.collection("crowds")
         let query = crowdsCollection.whereField("date", isEqualTo: formattedDate)
          do {
             let snapshot = try await query.getDocuments()

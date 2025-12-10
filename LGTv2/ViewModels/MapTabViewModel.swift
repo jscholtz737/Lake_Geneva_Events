@@ -33,14 +33,12 @@ import FirebaseFirestore
             let eventDate = event.startDate.dateValue() // Timestamp -> Date
             return Calendar.current.isDate(eventDate, inSameDayAs: date)
         }
-        print("filtered events: \(filteredEvents)")
     }
 
     func getCrowds(date:Date) {
         Task {
             await DataService.shared.getFirebaseCrowdData(date: date)
             await crowds = DataService.shared.crowds
-            print("crowds: \(crowds) ")
         }
     }
 

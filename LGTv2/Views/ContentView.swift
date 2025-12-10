@@ -23,7 +23,7 @@ struct ContentView: View {
                     ListTabView()
                 }
                 Tab("Search", systemImage: "magnifyingglass", value: 2) {
-                    Text("Search Events")
+                    SearchTabView()
                 }
             }
     }

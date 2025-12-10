@@ -6,44 +6,47 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
+
 
 struct SearchTabView: View {
+    
+    @Environment(SearchTabViewModel.self) var searchTabViewModel
+    @State var showSheet = false
+    @State private var debounceTimer: Timer?
+    
     var body: some View {
         
-        @Environment(SearchTabViewModel.self) var searchTabViewModel
-        let blankEvent = Event(id: "", name: "", location: "", locationDetails: "", latitude: 0.0, longitude: 0.0, description: "", link: "", time: "", imageName: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), recurring: "")
-        @State var searchText: String = ""
-        @State var showSheet = false
+        @Bindable var searchTabViewModel = searchTabViewModel
         
-        VStack {
-            ForEach(searchTabViewModel.upcomingEvents) { event in
-                ListCard(event: event)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color(.systemGray6))
-                    )
-                    .listRowBackground(Color.clear)
-                    .onTapGesture {
-                        searchTabViewModel.selectedEvent = event
-                        showSheet.toggle()
-                    }
+        NavigationStack {
+            ScrollView {
+                ForEach(searchTabViewModel.searchResults) { event in
+                    ListCard(event: event)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                        .onTapGesture {
+                            searchTabViewModel.selectedEvent = event
+                            showSheet.toggle()
+                        }
+                }
             }
-            .searchable(text: $searchText, placement: .automatic, prompt: "Search for an event")
+            .padding()
         }
         .onAppear() {
             searchTabViewModel.getUpcomingEvents()
         }
+        .searchable(text: $searchTabViewModel.searchText, placement: .toolbar, prompt: "Search for an event")
         .sheet(isPresented: $showSheet) {
-            EventDetailView(event: searchTabViewModel.selectedEvent ?? blankEvent)
-                .presentationDetents([.medium, .large])
+            if let sheetEvent = searchTabViewModel.selectedEvent {
+                EventDetailView(event: sheetEvent)
+                    .presentationDetents([.medium, .large])
+            }
         }
     }
 }
 
 #Preview {
+    
     SearchTabView()
         .environment(SearchTabViewModel())
 }

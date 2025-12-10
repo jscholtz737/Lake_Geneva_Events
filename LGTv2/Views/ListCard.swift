@@ -31,6 +31,11 @@ struct ListCard: View {
             Text(event.time)
                 .font(.subheadline)
         }
+        .padding(5)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color(.systemGray6))
+        )
     }
 }
 
