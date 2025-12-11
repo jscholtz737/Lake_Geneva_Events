@@ -45,18 +45,19 @@ struct WxView: View {
 extension WxView {
     
     var currentWeather: some View {
-        HStack (alignment: .bottom, spacing: -10) {
+        HStack (alignment: .bottom, spacing: -20) {
             
             if currentWx.temp_f == nil {
                 let stringTemp = "--"
                 Text(stringTemp + "°")
                     .padding(.trailing)
-                    .offset(y: -12)
+                    .offset(y: -8)
             } else {
                 let stringTemp = String(format: "%1.f", currentWx.temp_f ?? "--")
                 Text(stringTemp + "°")
+                    .font(.callout)
                     .padding(.trailing)
-                    .offset(y: -12)
+                    .offset(y: -8)
             }
             
             if skyIcon == "" {
@@ -81,6 +82,7 @@ extension WxView {
     
     WxView()
         .environment(MapTabViewModel())
+        .background(Color.warmBlue)
    
     
 }

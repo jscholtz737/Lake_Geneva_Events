@@ -100,7 +100,8 @@ final actor DataService {
         //check if api key exists
         
         //1. create url
-        if let url = URL(string:"https://api.weatherapi.com/v1/current.json?key=a30a1d5265d04306a3c30909241905&q=53147&aqi=no") {
+        let key = Secrets.weatherAPIKey
+        if let url = URL(string:"https://api.weatherapi.com/v1/current.json?key=\(key)&q=53147&aqi=no") {
             
             //2. create request
             let request = URLRequest(url: url)

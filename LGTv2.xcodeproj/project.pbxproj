@@ -95,8 +95,6 @@
 				1A9112952C275B0A001A43CA /* ContentView.swift */,
 				1A70B3812E0C7E8E00ECB941 /* MapTabView.swift */,
 				1AD897FC2C495EF300CF23A6 /* ListTabView.swift */,
-				1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */,
-				1A11002D2EE9D02D00DB1DED /* SecretsDecoder.swift */,
 				1A5121182EE66BD000CA4B7E /* SearchTabView.swift */,
 				1A5D81162ED0D8D300E6142B /* ListCard.swift */,
 				1A421EE52E5F85B50047EF16 /* CrowdView.swift */,
@@ -148,6 +146,7 @@
 				1A0CBFB72C8F49CC000A92BF /* Info.plist */,
 				1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */,
 				1A9112932C275B0A001A43CA /* LGTv2App.swift */,
+				1AD22B302EEA37A80007DAEC /* ConfigFiles */,
 				1A42482F2E1807DC00C921E7 /* Models */,
 				1A4248302E18081B00C921E7 /* Views */,
 				1A4248332E18087200C921E7 /* ViewModels */,
@@ -164,6 +163,15 @@
 				1A91129A2C275B0D001A43CA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1AD22B302EEA37A80007DAEC /* ConfigFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */,
+				1A11002D2EE9D02D00DB1DED /* SecretsDecoder.swift */,
+			);
+			path = ConfigFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +282,7 @@
 /* Begin XCBuildConfiguration section */
 		1A91129C2C275B0D001A43CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -397,12 +406,13 @@
 		};
 		1A91129F2C275B0D001A43CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LGTv2/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -413,9 +423,9 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = joe.LGTv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -437,7 +447,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LGTv2/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -448,9 +458,9 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = joe.LGTv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";

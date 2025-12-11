@@ -37,34 +37,34 @@ extension CrowdView {
                     case "Low":
                         Image(systemName: "person.fill")
                             .foregroundColor(.green)
-                            .font(.system(size: 32))
+                            .font(.system(size: 28))
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
-                            .offset(y: -8)
+                            .offset(y: -4)
                     case "Moderate":
                         Image(systemName: "person.2.fill")
                             .foregroundColor(.orange)
-                            .font(.system(size: 32))
+                            .font(.system(size: 28))
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
-                            .offset(y: -8)
+                            .offset(y: -4)
                     case "Heavy":
                         Image(systemName: "person.3.fill")
                             .foregroundColor(.red)
-                            .font(.system(size: 32))
+                            .font(.system(size: 28))
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
-                            .offset(y: -8)
+                            .offset(y: -4)
                     default:
                         Image(systemName: "person.fill.xmark")
-                            .font(.system(size: 32))
+                            .font(.system(size: 28))
                             .scaledToFit()
                             .frame(width: 48, height: 49)
                             .padding(.trailing)
-                            .offset(y: -10)
+                            .offset(y: -4)
                     }
                 }
             }
