@@ -51,8 +51,9 @@ extension ListTabView {
     var eventList: some View {
         // Group events by day and sort days
         let groupedByDay = Dictionary(grouping: listTabViewModel.eventsByDate) { event in
-            Calendar.current.startOfDay(for: event.startDate.dateValue())
+            Calendar.current.startOfDay(for: event.endDate.dateValue())
         }
+        
         let sortedDays = groupedByDay.keys.sorted()
 
         return List {

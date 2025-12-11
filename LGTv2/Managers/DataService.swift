@@ -73,6 +73,11 @@ final actor DataService {
             var newEvent = event
             newEvent.startDate = Timestamp(date: nextDate)
             newEvent.endDate = Timestamp(date: nextDate)
+             //add 16 hours to the timestamp so event doesn't get filtered out with Date() filters.  Need to fix for DST at some point
+             let currentEnd = newEvent.endDate.dateValue()
+             if let plus16 = Calendar.current.date(byAdding: .hour, value: 16, to: currentEnd) {
+                 newEvent.endDate = Timestamp(date: plus16)
+             }
             newEvent.id = UUID().uuidString
             events.append(newEvent)
         }
@@ -89,6 +94,11 @@ final actor DataService {
             var newEvent = event
             newEvent.startDate = Timestamp(date: nextDate)
             newEvent.endDate = Timestamp(date: nextDate)
+            //add 16 hours to the timestamp so event doesn't get filtered out with Date() filters.  Need to fix for DST at some point
+            let currentEnd = newEvent.endDate.dateValue()
+            if let plus16 = Calendar.current.date(byAdding: .hour, value: 16, to: currentEnd) {
+                newEvent.endDate = Timestamp(date: plus16)
+            }
             newEvent.id = UUID().uuidString
             events.append(newEvent)
         }

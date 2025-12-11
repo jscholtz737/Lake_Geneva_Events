@@ -23,6 +23,9 @@ struct EventDetailView: View {
                 eventLocation
                 Divider().padding(.vertical, 5)
                 
+                eventDate
+                Divider().padding(.vertical, 5)
+                
                 eventTime
                 Divider().padding(.vertical, 5)
                 
@@ -74,8 +77,19 @@ extension EventDetailView {
             .lineLimit(2)
             .minimumScaleFactor(0.7)
             .allowsTightening(true)
-            //.padding(.top, 20)
             .padding([.leading, .trailing])
+    }
+    
+    var eventDate: some View {
+        HStack {
+            Image(systemName: "calendar")
+                .padding([.leading, .trailing])
+                .foregroundColor(Color(.green))
+                .font(.title3)
+            Text(event.startDate.dateValue().formatted(.dateTime.weekday(.wide).month(.wide).day()))
+                .font(.callout)
+            Spacer()
+        }
     }
     
     var eventLocation: some View {
