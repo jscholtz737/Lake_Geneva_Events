@@ -30,6 +30,7 @@
 		1AB570A02C2D271700F4B4D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB5709F2C2D271700F4B4D8 /* FirebaseAuth */; };
 		1AB570A82C2DBD3300F4B4D8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1AB570A72C2DBD3300F4B4D8 /* FirebaseFirestore */; };
 		1AC1B8802CD031E400D51628 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */; };
+		1AD22B322EEC5D920007DAEC /* Date+Central.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD22B312EEC5D920007DAEC /* Date+Central.swift */; };
 		1AD897FD2C495EF300CF23A6 /* ListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FC2C495EF300CF23A6 /* ListTabView.swift */; };
 		1AD897FF2C49674100CF23A6 /* WxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD897FE2C49674100CF23A6 /* WxView.swift */; };
 		1AE4D31E2C27830600F9C34D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE4D31D2C27830600F9C34D /* FirebaseAnalytics */; };
@@ -60,6 +61,7 @@
 		1A9112A92C275D6F001A43CA /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		1AB4C6252C2F6B750094D982 /* MapTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTabViewModel.swift; sourceTree = "<group>"; };
 		1AC1B87F2CD031E400D51628 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1AD22B312EEC5D920007DAEC /* Date+Central.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Central.swift"; sourceTree = "<group>"; };
 		1AD897FC2C495EF300CF23A6 /* ListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTabView.swift; sourceTree = "<group>"; };
 		1AD897FE2C49674100CF23A6 /* WxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				1A9112A92C275D6F001A43CA /* DataService.swift */,
+				1AD22B312EEC5D920007DAEC /* Date+Central.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				1AB4C6262C2F6B750094D982 /* MapTabViewModel.swift in Sources */,
 				1AD897FD2C495EF300CF23A6 /* ListTabView.swift in Sources */,
 				1A5D81152ECE369800E6142B /* ListTabViewModel.swift in Sources */,
+				1AD22B322EEC5D920007DAEC /* Date+Central.swift in Sources */,
 				1A9112AA2C275D6F001A43CA /* DataService.swift in Sources */,
 				1A9112962C275B0A001A43CA /* ContentView.swift in Sources */,
 				1A9112A22C275C8C001A43CA /* Event.swift in Sources */,

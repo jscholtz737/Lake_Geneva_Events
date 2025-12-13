@@ -13,7 +13,7 @@ final actor DataService {
     
     static let shared = DataService()
     var events: [Event] = []
-    var date = Date() 
+    var date = Calendar.central.startOfDay(for: Date()) 
     var crowds: [Crowds] = []
     
 //    called from maptabviewmodel, on appear map view. gets all events from firebase and assigns them to DataService.events.  Then calls addRecurringEvents
@@ -68,15 +68,22 @@ final actor DataService {
         let endDate = event.endDate.dateValue()
         var nextDate = event.startDate.dateValue()
          while true {
-            nextDate = Calendar.current.date(byAdding: .day, value: 1, to: nextDate) ?? endDate
+            nextDate = Calendar.central.date(byAdding: .day, value: 1, to: nextDate) ?? endDate
             if nextDate > endDate { break }
             var newEvent = event
             newEvent.startDate = Timestamp(date: nextDate)
-            newEvent.endDate = Timestamp(date: nextDate)
-             //add 16 hours to the timestamp so event doesn't get filtered out with Date() filters.  Need to fix for DST at some point
-             let currentEnd = newEvent.endDate.dateValue()
-             if let plus16 = Calendar.current.date(byAdding: .hour, value: 16, to: currentEnd) {
-                 newEvent.endDate = Timestamp(date: plus16)
+            
+             // Build 11:59:00 PM Central for the endDate
+             let comps = Calendar.central.dateComponents([.year, .month, .day], from: nextDate)
+             var endComps = comps
+             endComps.hour = 23
+             endComps.minute = 59
+             endComps.second = 03
+             if let endOfDayCentral = Calendar.central.date(from: endComps) {
+                 newEvent.endDate = Timestamp(date: endOfDayCentral)
+             } else {
+                 // Fallback if something goes wrong constructing the date
+                 newEvent.endDate = Timestamp(date: nextDate)
              }
             newEvent.id = UUID().uuidString
             events.append(newEvent)
@@ -89,14 +96,14 @@ final actor DataService {
         let endDate = event.endDate.dateValue()
         var nextDate = event.startDate.dateValue()
         while true {
-            nextDate = Calendar.current.date(byAdding: .day, value: 7, to: nextDate) ?? endDate
+            nextDate = Calendar.central.date(byAdding: .day, value: 7, to: nextDate) ?? endDate
             if nextDate > endDate { break }
             var newEvent = event
             newEvent.startDate = Timestamp(date: nextDate)
             newEvent.endDate = Timestamp(date: nextDate)
             //add 16 hours to the timestamp so event doesn't get filtered out with Date() filters.  Need to fix for DST at some point
             let currentEnd = newEvent.endDate.dateValue()
-            if let plus16 = Calendar.current.date(byAdding: .hour, value: 16, to: currentEnd) {
+            if let plus16 = Calendar.central.date(byAdding: .hour, value: 16, to: currentEnd) {
                 newEvent.endDate = Timestamp(date: plus16)
             }
             newEvent.id = UUID().uuidString
@@ -137,6 +144,7 @@ final actor DataService {
         
         let dtFormatter = DateFormatter()
         dtFormatter.dateStyle = .short
+        dtFormatter.timeZone = .central
 
         let formattedDate = dtFormatter.string(from: date)
      
@@ -158,5 +166,4 @@ final actor DataService {
         }
     }
 }
-
 

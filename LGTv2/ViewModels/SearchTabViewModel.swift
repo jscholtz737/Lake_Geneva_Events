@@ -38,10 +38,10 @@ import FirebaseFirestore
     
     func getUpcomingEvents() {
         Task {
-            let now = Date()
+            let now = Calendar.central.startOfDay(for: Date())
             upcomingEvents = await DataService.shared.events
                 .filter { $0.startDate.dateValue() >= now }
-                .sorted { $0.startDate.dateValue() < $1.startDate.dateValue() }
+                .sorted { $0.startDate.dateValue() < $1.endDate.dateValue() }
         }
     }
     

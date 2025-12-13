@@ -30,8 +30,8 @@ import FirebaseFirestore
     
     func filterForSelectedDate(date: Date) {
         filteredEvents = events.filter { event in
-            let eventDate = event.startDate.dateValue() // Timestamp -> Date
-            return Calendar.current.isDate(eventDate, inSameDayAs: date)
+            let eventDate = event.startDate.dateValue()
+            return Calendar.central.isDate(eventDate, inSameDayAs: date)
         }
     }
 

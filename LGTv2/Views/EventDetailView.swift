@@ -47,27 +47,14 @@ struct EventDetailView: View {
                 Spacer()
             }
             .padding(.top, 50)
+            .background(.ultraThinMaterial)
         }
-                .background(
-                    backgroundPicture
-                )
     }
 }
 
 // MARK: COMPONENTS
 
 extension EventDetailView {
-    
-    var backgroundPicture: some View {
-        Image(event.imageName)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .ignoresSafeArea()
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .clipped()
-            .overlay(Color.sheet.opacity(0.8))
-            .blur(radius: 1)
-    }
     
     var eventName: some View {
         Text(event.name)

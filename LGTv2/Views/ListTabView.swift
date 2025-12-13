@@ -13,6 +13,7 @@ struct ListTabView: View {
     @State var showSheet = false
     @Environment(ListTabViewModel.self) var listTabViewModel
     
+    
     var body: some View {
         
             VStack {
@@ -51,14 +52,18 @@ extension ListTabView {
     var eventList: some View {
         // Group events by day and sort days
         let groupedByDay = Dictionary(grouping: listTabViewModel.eventsByDate) { event in
-            Calendar.current.startOfDay(for: event.endDate.dateValue())
+            Calendar.central.startOfDay(for: event.startDate.dateValue())
         }
-        
+
         let sortedDays = groupedByDay.keys.sorted()
 
         return List {
             ForEach(sortedDays, id: \.self) { day in
-                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())).foregroundStyle(Color.primary).italic().font(.title2).fontWeight(.bold)) {
+                Section(header: Text(day.formatted(.dateTime.weekday(.wide).month(.abbreviated).day()))
+                    .foregroundStyle(Color.primary)
+                    .italic()
+                    .font(.title2)
+                    .fontWeight(.bold)) {
                     // sort events within a day by start time
                     let events = (groupedByDay[day] ?? []).sorted { lhs, rhs in
                         lhs.startDate.dateValue() < rhs.startDate.dateValue()
