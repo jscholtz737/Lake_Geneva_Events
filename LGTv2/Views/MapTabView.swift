@@ -119,6 +119,9 @@ extension MapTabView {
                 Text(date, format: .dateTime.weekday(.wide))
                     .font(.title2)
                     .fontWeight(.bold)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .allowsTightening(true)
                 
                 Text(date, format: .dateTime.month().day())
             }
