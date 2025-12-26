@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1A0CBFB92C8F734B000A92BF /* Crowds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0CBFB82C8F734B000A92BF /* Crowds.swift */; };
-		1A11002C2EE9CF5600DB1DED /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1A11002B2EE9CF5600DB1DED /* Secrets.xcconfig */; };
 		1A11002E2EE9D03A00DB1DED /* SecretsDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A11002D2EE9D02D00DB1DED /* SecretsDecoder.swift */; };
 		1A421EE62E5F85B50047EF16 /* CrowdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A421EE52E5F85B50047EF16 /* CrowdView.swift */; };
 		1A5121152EE263A100CA4B7E /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5121142EE263A100CA4B7E /* MapPin.swift */; };
@@ -211,7 +210,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 2610;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					1A91128F2C275B0A001A43CA = {
 						CreatedOnToolsVersion = 15.4;
@@ -244,7 +243,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A11002C2EE9CF5600DB1DED /* Secrets.xcconfig in Resources */,
 				1A91129B2C275B0D001A43CA /* Preview Assets.xcassets in Resources */,
 				1A9112982C275B0D001A43CA /* Assets.xcassets in Resources */,
 				1AC1B8802CD031E400D51628 /* GoogleService-Info.plist in Resources */,
@@ -435,7 +433,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = joe.LGTv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
