@@ -65,6 +65,8 @@ struct MapTabView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 date = Date()
+                mapTabViewModel.getEvents()
+                mapTabViewModel.getCrowds(date: date)
             }
     }
 }
