@@ -14,12 +14,39 @@ struct ListCard: View {
     
     var body: some View {
         HStack{
-            Image(event.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 75.0, height: 75.0)
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            if let url = URL(string: event.imageName) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color(.systemGray4))
+                            .frame(width: 75.0, height: 75.0)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 75.0, height: 75.0)
+                            .clipped()
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    case .failure:
+                        Image("LakeGeneva")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 75.0, height: 75.0)
+                            .clipped()
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    @unknown default:
+                        EmptyView()
+                    }
+                }
+            } else {
+                Image("LakeGeneva")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 75.0, height: 75.0)
+                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
             VStack (alignment: .leading){
                 Text(event.name)
                     .bold()
